@@ -7,7 +7,7 @@ public class MapCreator : MonoBehaviour {
 
 	public int x = 5;
 	public int y = 5;
-	
+
 	public float radius = 0.5f;
 	public float margin = 0.1f;
 	//public bool useAsInnerCircleRadius = true;
