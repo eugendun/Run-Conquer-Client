@@ -8,7 +8,8 @@ namespace AssemblyCSharp
 {
     public class PlayerModel
     {
-        public int Id;
+        [JsonSerializable]
+        public int Id{get; set;}
         public Vector2 Position;
         public GameInstanceModel GameInstance {get;set;}       
 
@@ -31,6 +32,11 @@ namespace AssemblyCSharp
         public PlayerModel(int id)
         {
             Id = id;
+        }
+
+        public PlayerModel()
+        {
+            // TODO: Complete member initialization
         }
 
         public string ToJsonString()

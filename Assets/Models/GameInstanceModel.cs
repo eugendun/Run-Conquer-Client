@@ -7,9 +7,16 @@ namespace AssemblyCSharp
 {
     public class GameInstanceModel
     {
+        [JsonSerializable]
         public int Id { get; set; }
+
+        [JsonSerializable]
         public MapModel Map{ get; set;}
+
+        [JsonSerializable]
         public ICollection<PlayerModel> Players{ get; set;}
+
+        [JsonSerializable]
         public ICollection<TeamModel> Teams{ get; set;}
 
         public GameInstanceModel()

@@ -6,3 +6,6 @@
 *.csproj
 *.unityproj
 *.sln
+/test-results
+/Run-Conquer-Client-Tests/test-results
+/Run-Conquer-Client-Tests/bin

@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         player = new PlayerModel(1);
+        Debug.Log(JsonSerializer.Serialize(player));
+        var uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
+        Debug.Log(uniqDeviceId);
 //        GetPlayerPosition();
 //        PutPlayerPosition();
     }
