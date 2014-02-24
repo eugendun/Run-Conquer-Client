@@ -1,8 +1,8 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Models\GameInstanceModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Models\PlayerController.cs">
     <Files>
-      <File FileName="Assets\Models\GameInstanceModel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Models\PlayerController.cs" Line="50" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

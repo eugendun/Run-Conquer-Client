@@ -1,11 +1,10 @@
-﻿using NUnit.Framework;
-using System.Diagnostics;
-using AssemblyCSharp;
+﻿using AssemblyCSharp;
+using NUnit.Framework;
 
 namespace RunConquerClientTests
 {
     [TestFixture]
-    class JsonSerializerTests
+    internal class JsonSerializerTests
     {
         // TODO objects with serializable attributes
 
@@ -13,24 +12,27 @@ namespace RunConquerClientTests
 
         // TODO objects with partialy serializable properties 
 
-        class SerializableObject
+        private class SerializableObject
         {
             [JsonSerializable]
             public int Id { get; set; }
+
             [JsonSerializable]
             public float Position { get; set; }
+
             [JsonSerializable]
             public double Latitude { get; set; }
+
             [JsonSerializable]
             public bool JsonAble { get; set; }
         }
 
-        [Test()]
+        [Test]
         public void SerializableObjectsDefaultProperties()
         {
             var obj = new SerializableObject();
-            var expectedJsonString = "{\"Id\":\"0\", \"Position\":\"0\", \"Latitude\":\"0\", \"JsonAble\":\"false\"}";
-            Assert.AreEqual(expectedJsonString, JsonSerializer.Serialize(obj));            
+            string expectedJsonString = "{\"Id\":\"0\", \"Position\":\"0\", \"Latitude\":\"0\", \"JsonAble\":\"false\"}";
+            Assert.AreEqual(expectedJsonString, JsonSerializer.Serialize(obj));
         }
     }
 }

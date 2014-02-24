@@ -1,42 +1,41 @@
 using UnityEngine;
-using System;
-using SimpleJSON;
-using System.IO;
-using System.Text;
 
 namespace AssemblyCSharp
 {
     public class PlayerModel
     {
-        [JsonSerializable]
-        public int Id{get; set;}
         public Vector2 Position;
-        public GameInstanceModel GameInstance {get;set;}       
 
         private TeamModel _team;
-        public TeamModel Team {
-            get{ return _team; } 
-            set{
-                if(_team != value){
-                    if (_team != null && _team.Players.Contains(this)){
-                        _team.Players.Remove(this);
-                    }
-                    _team = value;
-                    if(_team != null && !_team.Players.Contains(this)){
-                        _team.Players.Add(this);
-                    }
-                }
-            }
-        }
 
         public PlayerModel(int id)
         {
             Id = id;
         }
 
-        public PlayerModel()
+        [JsonSerializable]
+        public int Id { get; set; }
+
+        public GameInstanceModel GameInstance { get; set; }
+
+        public TeamModel Team
         {
-            // TODO: Complete member initialization
+            get { return _team; }
+            set
+            {
+                if (_team != value)
+                {
+                    if (_team != null && _team.Players.Contains(this))
+                    {
+                        _team.Players.Remove(this);
+                    }
+                    _team = value;
+                    if (_team != null && !_team.Players.Contains(this))
+                    {
+                        _team.Players.Add(this);
+                    }
+                }
+            }
         }
 
         public string ToJsonString()
@@ -49,4 +48,3 @@ namespace AssemblyCSharp
         }
     }
 }
-

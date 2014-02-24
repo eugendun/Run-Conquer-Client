@@ -1,5 +1,6 @@
 using AssemblyCSharp;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace RunConquerClientTests
 {
@@ -15,6 +16,9 @@ namespace RunConquerClientTests
 
             gameInstance.Map = map;
             Assert.AreEqual(gameInstance.Map, map);
+
+            gameInstance.Map = null;
+            Assert.IsNull(gameInstance.Map);
         }
 
         [Test]
@@ -61,8 +65,8 @@ namespace RunConquerClientTests
             CollectionAssert.Contains(gameInstance.Teams, team2);
 
             gameInstance.Teams.Clear();
+            CollectionAssert.DoesNotContain(gameInstance.Teams, team2);
             Assert.IsNull(team2.GameInstance);
-            CollectionAssert.IsEmpty(gameInstance.Teams);
         }
 
         [Test]
