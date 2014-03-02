@@ -15,6 +15,7 @@ public class MapCreator : MonoBehaviour {
 	private float offsetX, offsetY;
 
 	private string output = "";
+	private bool initialized = false;
 
 
 	void Start() {
@@ -24,9 +25,8 @@ public class MapCreator : MonoBehaviour {
 		offsetX = unitLength * Mathf.Sqrt(3);
 		offsetY = unitLength * 1.5f;
 	}
-
-
-	// Vertices sind immer dann befuellt, wenn man beim Mesh im GUI folgende Dinge umstellt: Normals: None -> apply -> Normals: Import -> apply
+	
+	
 	void GenerateTextureCoordinates(Transform mapTile) {
 		Mesh smesh = spawnThis.GetComponent<MeshFilter>().sharedMesh;
 		Mesh mesh = spawnThis.GetComponent<MeshFilter>().mesh;
@@ -49,10 +49,8 @@ public class MapCreator : MonoBehaviour {
 		tileMesh.uv = uv;
 	}
 
-	private int secondsSinceStart = 0;
-
 	void Update() {
-		if (secondsSinceStart == 10) {
+		if (!initialized) {
 			for( int i = 0; i < x; i++ ) {
 				for( int j = 0; j < y; j++ ) {
 					Vector2 hexpos = HexOffset( i, j );
@@ -64,8 +62,9 @@ public class MapCreator : MonoBehaviour {
 					GenerateTextureCoordinates(mapTile);
 				}
 			}
+
+			initialized = true;
 		}
-		secondsSinceStart++;
 	}
 	
 	Vector2 HexOffset( int x, int y ) {
@@ -99,7 +98,7 @@ public class MapCreator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void OnGUI () {
-		Rect rect = new Rect(0, 400, 800, 800);
-		GUI.Label(rect, output);
+//		Rect rect = new Rect(0, 400, 800, 800);
+//		GUI.Label(rect, output);
 	}
 }
