@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     };
 
     private PlayerModel _player;
+	public PlayerModel Player { get { return _player; } }
 
     // Use this for initialization
     public void Start()

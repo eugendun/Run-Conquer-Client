@@ -1,0 +1,4 @@
+TODO:
+
++ map has to start at world-position (0, 0) so that calculated position of ME in map-space can easily be translated into world-space
++ map-creator should not be child of each map-tile. Instead, each map-tile should just get the created material

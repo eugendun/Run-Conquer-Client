@@ -4,7 +4,9 @@ using System.Collections;
 public class LocationRequester {
 
 	public string output;
-	public bool locationEnabled = false;
+	public Rect latLongBounds;
+
+	private bool locationEnabled = false;
 //	private float GPSUpdateInterval = 1.0f;
 
 	public LocationRequester(MonoBehaviour caller) {
@@ -46,9 +48,18 @@ public class LocationRequester {
 		return true;
 	}
 
+	/// <summary>
+	/// Gets the location.
+	/// </summary>
+	/// <returns>Value between (0, 0) and (1, 1) in normalized map-space</returns>
 	public Vector3 GetLocation() {
 		if (locationEnabled) {
-			return new Vector3(Input.location.lastData.longitude, 0.0f, Input.location.lastData.latitude);
+			Vector3 v = new Vector3(Input.location.lastData.longitude, 0.0f, Input.location.lastData.latitude);
+			output  = "\n   Me latLon  = " + v.x + ", " + v.z;
+			output += "\n   Map center = " + latLongBounds.center.x + ", " + latLongBounds.center.y;
+			v.x = (v.x - (latLongBounds.center.y - latLongBounds.height/2)) / latLongBounds.height;
+			v.z = (v.z - (latLongBounds.center.x - latLongBounds.width/2))  / latLongBounds.width;
+			return v;
 		} else {
 			return new Vector3(0, 0, 0);
 		}
