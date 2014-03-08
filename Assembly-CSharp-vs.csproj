@@ -48,10 +48,11 @@
   <ItemGroup>
      <Compile Include="Assets\game\GameController.cs" />
      <Compile Include="Assets\game\MeController.cs" />
-     <Compile Include="Assets\map\MapCreator.cs" />
+     <Compile Include="Assets\map\Map.cs" />
      <Compile Include="Assets\map\MapRequester.cs" />
      <Compile Include="Assets\map\MapTileController.cs" />
      <Compile Include="Assets\menu\menuStart.cs" />
+     <Compile Include="Assets\menu\menuTeamSelection.cs" />
      <Compile Include="Assets\models\GameInstanceModel.cs" />
      <Compile Include="Assets\models\JsonSerializableAttribute.cs" />
      <Compile Include="Assets\models\JsonSerializer.cs" />
@@ -61,6 +62,7 @@
      <Compile Include="Assets\models\TeamModel.cs" />
      <Compile Include="Assets\shared\LocationRequester.cs" />
      <Compile Include="Assets\shared\ObservableCollection.cs" />
+     <Compile Include="Assets\shared\Shared.cs" />
      <Compile Include="Assets\util\GoogleMapsTransformation.cs" />
      <Compile Include="Assets\util\MercatorProjection.cs" />
  <Reference Include="ICSharpCode.SharpZipLib">

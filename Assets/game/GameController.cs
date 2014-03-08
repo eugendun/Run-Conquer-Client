@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 	public Transform spawnThis;
 	public MeController me;
 
-	private MapCreator mapCreator;
+	private Map map;
 
 	private GameInstanceModel gameModel;
 	private List<PlayerController> opponents;
@@ -24,18 +24,17 @@ public class GameController : MonoBehaviour {
 		// DEBUG
 //		Vector2 center = new Vector2(49.9945287f, 8.2630081f);
 //		int     zoom   = 17;
-		Vector2 center = new Vector2(49.88433f, 8.082729f);
-		int     zoom   = 19;
-		Vector2 size   = new Vector2(1000, 1000);
+		gameObject.AddComponent<Map>();
+		map = gameObject.GetComponent<Map>();
+		map.spawnThis = spawnThis;
+		map.tilesX = 10;
+		map.tilesY = 11;
 
-		gameObject.AddComponent<MapCreator>();
-		mapCreator = gameObject.GetComponent<MapCreator>();
-		mapCreator.center = center;
-		mapCreator.zoom = zoom;
-		mapCreator.size = size;
-		mapCreator.spawnThis = spawnThis;
-		mapCreator.x = 10;
-		mapCreator.y = 11;
+		// DEBUG
+//		Shared.mapLatLon = new Vector2(49.88474f, 8.08301f);//Shared.LocationRequester.GetLocation();
+
+		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
+		output = "created map at " + Shared.mapLatLon.ToString();
 
 		// read player (opponents and me) models from game model and create controllers
 
@@ -44,12 +43,8 @@ public class GameController : MonoBehaviour {
 
 		// TODO
 		// create location requester and give it information to transform geo-coordinates into game-space
-		Rect mapLatLonRect = GoogleMapsTransformation.getCorners(center, zoom, (int)size.x, (int)size.y);
-		output = "(" + mapLatLonRect.x + ", " + mapLatLonRect.y + ", " + mapLatLonRect.width + ", " + mapLatLonRect.height + ")";
-		LocationRequester locationRequester = new LocationRequester(this);
-		locationRequester.latLongBounds = mapLatLonRect;
-		me.locationRequester = locationRequester;
-		me.map = mapCreator;
+
+		me.map = map;
 	}
 
 	void OnGUI() {
@@ -64,9 +59,9 @@ public class GameController : MonoBehaviour {
 		transform.position = new Vector3(me.transform.position.x, pos.y, me.transform.position.z);
 
 		// flip map tile
-		foreach (GameObject mapTile in mapCreator.MapTiles) {
-			if (Mathf.Pow(mapTile.transform.position.x - me.transform.position.x, 2) < MapCreator.TILE_RADIUS * MapCreator.TILE_RADIUS &&
-			    Mathf.Pow(mapTile.transform.position.z - me.transform.position.z, 2) < MapCreator.TILE_RADIUS * MapCreator.TILE_RADIUS &&
+		foreach (GameObject mapTile in map.MapTiles) {
+			if (Mathf.Pow(mapTile.transform.position.x - me.transform.position.x, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
+			    Mathf.Pow(mapTile.transform.position.z - me.transform.position.z, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
 			    mapTile.GetComponent<MapTileController>().team == null) {
 				mapTile.GetComponent<MapTileController>().team = me.Player.Team;
 				mapTile.GetComponent<MapTileController>().Flip();

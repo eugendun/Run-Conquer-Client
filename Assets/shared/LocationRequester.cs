@@ -4,9 +4,10 @@ using System.Collections;
 public class LocationRequester {
 
 	public string output;
-	public Rect latLongBounds;
 
 	private bool locationEnabled = false;
+	public bool LocationEnabled { get { return locationEnabled; } }
+
 //	private float GPSUpdateInterval = 1.0f;
 
 	public LocationRequester(MonoBehaviour caller) {
@@ -15,6 +16,8 @@ public class LocationRequester {
 
 	// Use this for initialization
 	private IEnumerator Start() {
+		output = "started";
+
 		// First, check if user has location service enabled
         if (!Input.location.isEnabledByUser) {
 			output = "location not enabled!";
@@ -26,6 +29,7 @@ public class LocationRequester {
         // Wait until service initializes
         int maxWait = 20;
         while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0) {
+			output += " " + maxWait + " seconds left";
 			yield return (new WaitForSeconds(1));
             maxWait--;
         }
@@ -51,17 +55,15 @@ public class LocationRequester {
 	/// <summary>
 	/// Gets the location.
 	/// </summary>
-	/// <returns>Value between (0, 0) and (1, 1) in normalized map-space</returns>
-	public Vector3 GetLocation() {
+	/// <returns>(Lat, Lon)</returns>
+	public Vector2 GetLocation() {
 		if (locationEnabled) {
-			Vector3 v = new Vector3(Input.location.lastData.longitude, 0.0f, Input.location.lastData.latitude);
-			output  = "\n   Me latLon  = " + v.x + ", " + v.z;
-			output += "\n   Map center = " + latLongBounds.center.x + ", " + latLongBounds.center.y;
-			v.x = (v.x - (latLongBounds.center.y - latLongBounds.height/2)) / latLongBounds.height;
-			v.z = (v.z - (latLongBounds.center.x - latLongBounds.width/2))  / latLongBounds.width;
+			Vector2 v = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+			output  = "\n   Me latLon  = " + v.x + ", " + v.y;
+
 			return v;
 		} else {
-			return new Vector3(0, 0, 0);
+			return new Vector2(0, 0);
 		}
 	}
 
