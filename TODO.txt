@@ -7,3 +7,5 @@ TODO:
 + let user pan map (should re-center above ME after about five seconds after panning)
 + use pictures of Duong, Eugen and Johannes as avatars and players on map in game
 + don't start flipping, when game starts. Wait a few seconds, until player locations are fix
++ discuss coloring and design of the App. Flat design?
++ create an App icon
