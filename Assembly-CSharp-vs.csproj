@@ -53,6 +53,7 @@
      <Compile Include="Assets\game\model\PlayerModel.cs" />
      <Compile Include="Assets\game\model\TeamModel.cs" />
      <Compile Include="Assets\map\Map.cs" />
+     <Compile Include="Assets\map\MapListener.cs" />
      <Compile Include="Assets\map\MapModel.cs" />
      <Compile Include="Assets\map\MapRequester.cs" />
      <Compile Include="Assets\map\MapTileController.cs" />

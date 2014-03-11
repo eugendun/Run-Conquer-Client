@@ -64,13 +64,15 @@ public class GameController : MonoBehaviour {
 		transform.position = new Vector3(me.transform.position.x, pos.y, me.transform.position.z);
 
 		// flip map tile
-		foreach (GameObject mapTile in map.MapTiles) {
-			if (Mathf.Pow(mapTile.transform.position.x - me.transform.position.x, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
-			    Mathf.Pow(mapTile.transform.position.z - me.transform.position.z, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
-			    mapTile.GetComponent<MapTileController>().team == null) {
-				mapTile.GetComponent<MapTileController>().team = me.Player.Team;
-				mapTile.GetComponent<MapTileController>().Flip();
-				output += "\nflip";
+		if (map.MapTiles != null) {
+			foreach (GameObject mapTile in map.MapTiles) {
+				if (Mathf.Pow(mapTile.transform.position.x - me.transform.position.x, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
+				    Mathf.Pow(mapTile.transform.position.z - me.transform.position.z, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
+				    mapTile.GetComponent<MapTileController>().team == null) {
+					mapTile.GetComponent<MapTileController>().team = me.Player.Team;
+					mapTile.GetComponent<MapTileController>().Flip();
+					output += "\nflip";
+				}
 			}
 		}
 	}

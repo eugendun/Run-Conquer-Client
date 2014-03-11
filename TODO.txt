@@ -9,8 +9,6 @@ TODO:
 + let user pan map (should re-center above ME after about five seconds after panning)
 + use pictures of Duong, Eugen and Johannes as avatars and players on map in game
 + don't start flipping, when game starts. Wait a few seconds, until player locations are fix
-+ map has to start at world-position (0, 0) so that calculated position of ME in map-space can easily be translated into world-space
-+ map-creator should not be child of each map-tile. Instead, each map-tile should just get the created material
 + discuss coloring and design of the App. Flat design?
 + create an App icon
 + hide maptile prefab somewhere far away in the world

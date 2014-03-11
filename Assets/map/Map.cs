@@ -57,17 +57,23 @@ public class Map : MonoBehaviour {
 		this.size = size;
 
 		if (started) {
+			
+			// create requester for the map
+			gameObject.AddComponent<MapRequester>();
+			MapRequester mapRequester = gameObject.GetComponent<MapRequester>();
+
 			for( int i = 0; i < tilesX; i++ ) {
 				for( int j = 0; j < tilesY; j++ ) {
 					Vector2 hexpos = HexOffset( i, j );
 					Vector3 pos = new Vector3(hexpos.x, -1, hexpos.y);
 					Transform mapTile = (Transform)Instantiate(spawnThis, pos, Quaternion.AngleAxis(-90, Vector3.right));
 					mapTile.localScale = new Vector3(TILE_RADIUS, TILE_RADIUS, TILE_RADIUS);
-					mapTile.gameObject.AddComponent<MapRequester>();
-					mapTile.gameObject.GetComponent<MapRequester>().center = center;
-					mapTile.gameObject.GetComponent<MapRequester>().zoom = zoom;
-					mapTile.gameObject.GetComponent<MapRequester>().size = size;
+
+					// add map tile as listener to map requester to get notified, when map has been loaded
 					mapTile.gameObject.AddComponent<MapTileController>();
+					mapRequester.addListener(mapTile.gameObject.GetComponent<MapTileController>());
+
+					// create uv coordinates all over the map
 					TextureUnwrapper.unwrapUV(mapTile.gameObject, new Vector2(1 / mapSize.x, 1 / mapSize.y), new Vector2(0, 0));
 					
 					// add to list
@@ -75,6 +81,8 @@ public class Map : MonoBehaviour {
 				}
 			}
 
+			// request map and calculate its bounds
+			mapRequester.Request(center, zoom, size);
 			latLonBounds = GoogleMapsTransformation.getCorners(center, zoom, (int)size.x, (int)size.y);
 			output += "\nmap bounds = (" + latLonBounds.x + ", " + latLonBounds.y + ", " + latLonBounds.width + ", " + latLonBounds.height + ")";
 		} else {

@@ -2,7 +2,7 @@
 using System.Collections;
 using AssemblyCSharp;
 
-public class MapTileController : MonoBehaviour {
+public class MapTileController : MonoBehaviour, MapListener {
 
 
 	private int counter = 0;
@@ -15,6 +15,10 @@ public class MapTileController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	}
+
+	public void mapDidLoad(Texture2D texture) {
+		renderer.material.mainTexture = texture;
 	}
 	
 	// Update is called once per frame
