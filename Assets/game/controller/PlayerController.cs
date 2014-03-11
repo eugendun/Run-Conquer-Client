@@ -27,13 +27,10 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-		output += "\n  Player.start " + this;
         string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
         _player = new PlayerModel(uniqDeviceId.GetHashCode());
 
-		output += "\n  create player";
 		CreatePlayer();
-		output += "\n  create player done";
 
 		// choose player icon by player ID
 		Texture2D tex = null;
@@ -47,7 +44,6 @@ public class PlayerController : MonoBehaviour
 			tex = Resources.Load<Texture2D>("textures/icon_default");
 		}
 		renderer.material.mainTexture = tex;
-		output += "\n  set material done";
 
 		// set texture coords
 		TextureUnwrapper.unwrapUV(gameObject, new Vector2(1, 1), new Vector2(0.5f, 0.5f));
@@ -115,7 +111,9 @@ public class PlayerController : MonoBehaviour
     }
 
 	public void OnGUI() {
-		GUI.Label(new Rect(10, 300, 500, 200), "device id: ." + _player.Id + ".");
-		GUI.Label(new Rect(10, 100, 400, 900), output);
+		GUIStyle style = new GUIStyle(GUI.skin.label);
+		style.fontSize = 16;
+		GUI.Label(new Rect(10, 100, 1000, 900), output, style);
+		GUI.Label(new Rect(10, 300, 700, 200), "device id: ." + _player.Id + ".", style);
 	}
 }

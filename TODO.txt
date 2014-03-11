@@ -1,5 +1,6 @@
 TODO:
 
++ scaling of map-bounds seems to be incorrect. Has to be about 60% of it.
 + tiles should flip slower and around 360°. When flipping is done, it should have the color of the conquering team
 + improve hex mesh. Make it more smooth at the corners and on top
 + frazzle the borders of the map

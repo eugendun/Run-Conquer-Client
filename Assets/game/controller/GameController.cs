@@ -27,12 +27,12 @@ public class GameController : MonoBehaviour {
 		gameObject.AddComponent<Map>();
 		map = gameObject.GetComponent<Map>();
 		map.spawnThis = spawnThis;// Resources.Load<Transform>("maptile");
-		map.tilesX = 10;
-		map.tilesY = 11;
+		map.tilesX = 14;
+		map.tilesY = 15;
 
 
 		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
-		output = "created map at " + Shared.mapLatLon.ToString();
+		output = "created map at " + "(" + Shared.mapLatLon.x + ", " + Shared.mapLatLon.y + ")";
 
 		// read player (opponents and me) models from game model and create controllers
 

@@ -18,6 +18,11 @@ public class GoogleMapsTransformation {
 		Vector2 neLatLon = projection.fromPointToLatLng(nePoint);
 //		EditorUtility.DisplayDialog ("NE", neLatLon.x + "   " + neLatLon.y, "Ok");
 
-		return new Rect(swLatLon.x, swLatLon.y, neLatLon.x - swLatLon.x, neLatLon.y - swLatLon.y);
+		// shrink rect a little bit, because calculation seems to be not exact
+		Rect rect = new Rect(swLatLon.x, swLatLon.y, neLatLon.x - swLatLon.x, neLatLon.y - swLatLon.y);
+		rect.width  *= 0.6f;
+		rect.height *= 0.6f;
+		rect.center = center;
+		return rect;
 	}
 }
