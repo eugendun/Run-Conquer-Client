@@ -10,4 +10,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/menu/menuTeamSelection.unity
   - enabled: 1
-    path: Assets/game/game.unity
+    path: Assets/game/view/game.unity

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class menuStart : MonoBehaviour {
+public class MenuStart : MonoBehaviour {
 
 	private bool decided = false;
 

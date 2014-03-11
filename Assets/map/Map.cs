@@ -60,7 +60,7 @@ public class Map : MonoBehaviour {
 			for( int i = 0; i < tilesX; i++ ) {
 				for( int j = 0; j < tilesY; j++ ) {
 					Vector2 hexpos = HexOffset( i, j );
-					Vector3 pos = new Vector3(hexpos.x, 0, hexpos.y);
+					Vector3 pos = new Vector3(hexpos.x, -1, hexpos.y);
 					Transform mapTile = (Transform)Instantiate(spawnThis, pos, Quaternion.AngleAxis(-90, Vector3.right));
 					mapTile.localScale = new Vector3(TILE_RADIUS, TILE_RADIUS, TILE_RADIUS);
 					mapTile.gameObject.AddComponent<MapRequester>();
@@ -68,7 +68,7 @@ public class Map : MonoBehaviour {
 					mapTile.gameObject.GetComponent<MapRequester>().zoom = zoom;
 					mapTile.gameObject.GetComponent<MapRequester>().size = size;
 					mapTile.gameObject.AddComponent<MapTileController>();
-					GenerateTextureCoordinates(mapTile);
+					TextureUnwrapper.unwrapUV(mapTile.gameObject, new Vector2(1 / mapSize.x, 1 / mapSize.y), new Vector2(0, 0));
 					
 					// add to list
 					mapTiles.Add(mapTile.gameObject);
@@ -83,24 +83,24 @@ public class Map : MonoBehaviour {
 	}
 	
 	
-	protected void GenerateTextureCoordinates(Transform mapTile) {
-		Mesh smesh = spawnThis.GetComponent<MeshFilter>().sharedMesh;
-		Mesh mesh = spawnThis.GetComponent<MeshFilter>().mesh;
-
-		Mesh tileSmesh = mapTile.GetComponent<MeshFilter>().sharedMesh;
-		Mesh tileMesh = mapTile.GetComponent<MeshFilter>().mesh;
-
-		Vector2[] uv = new Vector2[mesh.vertexCount];
-		float f = 0.01f;
-		//mesh.vertices[2] = new Vector3(0.01f, 0.02f, 0.3f);
-		for (int i = 0; i < mesh.vertexCount; i++) {
-			Vector3 vertexPos = mapTile.localToWorldMatrix * new Vector4(mesh.vertices[i].x, mesh.vertices[i].y, mesh.vertices[i].z, 1.0f);
-			uv[i] = new Vector2(vertexPos.x / mapSize.x, vertexPos.z / mapSize.y);
-			//uv[i] = Random.insideUnitCircle;
-		}
-
-		tileMesh.uv = uv;
-	}
+//	protected void GenerateTextureCoordinates(Transform mapTile) {
+//		Mesh smesh = spawnThis.GetComponent<MeshFilter>().sharedMesh;
+//		Mesh mesh = spawnThis.GetComponent<MeshFilter>().mesh;
+//
+//		Mesh tileSmesh = mapTile.GetComponent<MeshFilter>().sharedMesh;
+//		Mesh tileMesh = mapTile.GetComponent<MeshFilter>().mesh;
+//
+//		Vector2[] uv = new Vector2[mesh.vertexCount];
+//		float f = 0.01f;
+//		//mesh.vertices[2] = new Vector3(0.01f, 0.02f, 0.3f);
+//		for (int i = 0; i < mesh.vertexCount; i++) {
+//			Vector3 vertexPos = mapTile.localToWorldMatrix * new Vector4(mesh.vertices[i].x, mesh.vertices[i].y, mesh.vertices[i].z, 1.0f);
+//			uv[i] = new Vector2(vertexPos.x / mapSize.x, vertexPos.z / mapSize.y);
+//			//uv[i] = Random.insideUnitCircle;
+//		}
+//
+//		tileMesh.uv = uv;
+//	}
 	
 	Vector2 HexOffset( int x, int y ) {
 		Vector2 position = Vector2.zero;

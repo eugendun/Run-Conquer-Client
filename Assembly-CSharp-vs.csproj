@@ -46,25 +46,26 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\game\GameController.cs" />
-     <Compile Include="Assets\game\MeController.cs" />
+     <Compile Include="Assets\game\controller\GameController.cs" />
+     <Compile Include="Assets\game\controller\MeController.cs" />
+     <Compile Include="Assets\game\controller\PlayerController.cs" />
+     <Compile Include="Assets\game\model\GameInstanceModel.cs" />
+     <Compile Include="Assets\game\model\PlayerModel.cs" />
+     <Compile Include="Assets\game\model\TeamModel.cs" />
      <Compile Include="Assets\map\Map.cs" />
+     <Compile Include="Assets\map\MapModel.cs" />
      <Compile Include="Assets\map\MapRequester.cs" />
      <Compile Include="Assets\map\MapTileController.cs" />
-     <Compile Include="Assets\menu\menuStart.cs" />
-     <Compile Include="Assets\menu\menuTeamSelection.cs" />
-     <Compile Include="Assets\models\GameInstanceModel.cs" />
-     <Compile Include="Assets\models\JsonSerializableAttribute.cs" />
-     <Compile Include="Assets\models\JsonSerializer.cs" />
-     <Compile Include="Assets\models\MapModel.cs" />
-     <Compile Include="Assets\models\PlayerController.cs" />
-     <Compile Include="Assets\models\PlayerModel.cs" />
-     <Compile Include="Assets\models\TeamModel.cs" />
-     <Compile Include="Assets\shared\LocationRequester.cs" />
-     <Compile Include="Assets\shared\ObservableCollection.cs" />
-     <Compile Include="Assets\shared\Shared.cs" />
+     <Compile Include="Assets\menu\MenuStart.cs" />
+     <Compile Include="Assets\menu\MenuTeamSelection.cs" />
      <Compile Include="Assets\util\GoogleMapsTransformation.cs" />
+     <Compile Include="Assets\util\JsonSerializableAttribute.cs" />
+     <Compile Include="Assets\util\JsonSerializer.cs" />
+     <Compile Include="Assets\util\LocationRequester.cs" />
      <Compile Include="Assets\util\MercatorProjection.cs" />
+     <Compile Include="Assets\util\ObservableCollection.cs" />
+     <Compile Include="Assets\util\Shared.cs" />
+     <Compile Include="Assets\util\TextureUnwrapper.cs" />
  <Reference Include="ICSharpCode.SharpZipLib">
  <HintPath>Assets\plugins\ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
