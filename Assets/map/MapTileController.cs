@@ -19,6 +19,7 @@ public class MapTileController : MonoBehaviour, MapListener {
 
 	public void mapDidLoad(Texture2D texture) {
 		renderer.material.mainTexture = texture;
+		renderer.material.color = Color.white;
 	}
 	
 	// Update is called once per frame

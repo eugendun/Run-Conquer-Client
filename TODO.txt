@@ -1,14 +1,11 @@
 TODO:
 
-+ scaling of map-bounds seems to be incorrect. Has to be about 60% of it.
-+ tiles should flip slower and around 360°. When flipping is done, it should have the color of the conquering team
-+ improve hex mesh. Make it more smooth at the corners and on top
-+ frazzle the borders of the map
++ beautify menu
 + add a background (maybe parallax) behind the map
-+ let camera move more smooth to ME position
-+ let user pan map (should re-center above ME after about five seconds after panning)
 + use pictures of Duong, Eugen and Johannes as avatars and players on map in game
 + don't start flipping, when game starts. Wait a few seconds, until player locations are fix
 + discuss coloring and design of the App. Flat design?
-+ create an App icon
-+ hide maptile prefab somewhere far away in the world
++ use App icon
++ let camera move more smooth to ME position
++ let user pan map (should re-center above ME after about five seconds after panning)
++ frazzle the borders of the map

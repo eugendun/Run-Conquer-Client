@@ -8,8 +8,8 @@ public class Shared {
 	public static string gameName = "Mainz";		// DEBUG. TODO: Set name via create-menu
 
 	public static Vector2 mapLatLon;
-	public static Vector2 mapSize = new Vector2(1000, 1000);
-	public static int mapZoom = 18;
+	public static Vector2 mapSize = new Vector2(4096, 4096);
+	public static int mapZoom = 17;
 
 	private static LocationRequester locationRequester;
 	public static LocationRequester LocationRequester { get { return locationRequester; } }

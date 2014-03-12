@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Map : MonoBehaviour {
 
-	public Transform spawnThis;
+//	public Transform spawnThis;
 
 	public int tilesX = 5;
 	public int tilesY = 5;
@@ -62,22 +62,27 @@ public class Map : MonoBehaviour {
 			gameObject.AddComponent<MapRequester>();
 			MapRequester mapRequester = gameObject.GetComponent<MapRequester>();
 
+			GameObject mapTileObject = Resources.Load<GameObject>("mapTilePrefab");
+			Color defaultColor = new Color(0.2f, 0.2f, 0.2f);
+			
 			for( int i = 0; i < tilesX; i++ ) {
 				for( int j = 0; j < tilesY; j++ ) {
 					Vector2 hexpos = HexOffset( i, j );
 					Vector3 pos = new Vector3(hexpos.x, -1, hexpos.y);
-					Transform mapTile = (Transform)Instantiate(spawnThis, pos, Quaternion.AngleAxis(-90, Vector3.right));
-					mapTile.localScale = new Vector3(TILE_RADIUS, TILE_RADIUS, TILE_RADIUS);
+					GameObject mapTile = (GameObject)Instantiate(mapTileObject, pos, Quaternion.AngleAxis(-90, Vector3.right));
+					mapTile.transform.localScale = new Vector3(TILE_RADIUS, TILE_RADIUS, TILE_RADIUS);
+
+					mapTile.renderer.material.color = defaultColor;
 
 					// add map tile as listener to map requester to get notified, when map has been loaded
-					mapTile.gameObject.AddComponent<MapTileController>();
-					mapRequester.addListener(mapTile.gameObject.GetComponent<MapTileController>());
+					mapTile.AddComponent<MapTileController>();
+					mapRequester.addListener(mapTile.GetComponent<MapTileController>());
 
 					// create uv coordinates all over the map
-					TextureUnwrapper.unwrapUV(mapTile.gameObject, new Vector2(1 / mapSize.x, 1 / mapSize.y), new Vector2(0, 0));
+					TextureUnwrapper.unwrapUV(mapTile, new Vector2(1 / mapSize.x, 1 / mapSize.y), new Vector2(0, 0));
 					
 					// add to list
-					mapTiles.Add(mapTile.gameObject);
+					mapTiles.Add(mapTile);
 				}
 			}
 

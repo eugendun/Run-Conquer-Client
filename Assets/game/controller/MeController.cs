@@ -40,10 +40,10 @@ public class MeController : PlayerController {
 		v.x *= mapSize.x;
 		v.y *= mapSize.y;
 
-//		// DEBUG
+//		// DEBUG auto-walk
 //		if (Mathf.Abs(v.x - transform.position.x) < 17) {
 //			v.x = transform.position.x - 0.003f;
-//			v.y = transform.position.z + 0.003f;
+//			v.y = transform.position.z - 0.002f;
 //		}
 
 		output += "\nmaps to : " + v.x + ",  " + v.y;

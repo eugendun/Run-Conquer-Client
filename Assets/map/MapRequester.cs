@@ -39,6 +39,7 @@ public class MapRequester : MonoBehaviour {
 		// inform listeners
 		foreach (MapListener listener in listeners) {
 			listener.mapDidLoad(www.texture);
+			yield return listener;
 		}
 		//renderer.material.mainTexture = www.texture;
 		

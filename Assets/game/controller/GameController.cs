@@ -5,7 +5,7 @@ using AssemblyCSharp;
 
 public class GameController : MonoBehaviour {
 
-	public Transform spawnThis;
+//	public Transform spawnThis;
 	private MeController me;
 
 	private Map map;
@@ -26,9 +26,9 @@ public class GameController : MonoBehaviour {
 //		int     zoom   = 17;
 		gameObject.AddComponent<Map>();
 		map = gameObject.GetComponent<Map>();
-		map.spawnThis = spawnThis;// Resources.Load<Transform>("maptile");
-		map.tilesX = 14;
-		map.tilesY = 15;
+//		map.spawnThis = spawnThis;// Resources.Load<Transform>("maptile");
+		map.tilesX = 16;
+		map.tilesY = 17;
 
 
 		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
@@ -72,8 +72,8 @@ public class GameController : MonoBehaviour {
 				    Mathf.Pow(mapTile.transform.position.z - me.transform.position.z, 2) < Map.TILE_RADIUS * Map.TILE_RADIUS &&
 				    mapTile.GetComponent<MapTileController>().team == null) {
 					mapTile.GetComponent<MapTileController>().team = me.Player.Team;
+					mapTile.renderer.material = me.TeamObject.renderer.material;
 					mapTile.GetComponent<MapTileController>().Flip();
-					output += "\nflip";
 				}
 			}
 		}
