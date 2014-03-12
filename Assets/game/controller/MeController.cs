@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using System.Text;
 
 public class MeController : PlayerController {
 
@@ -11,12 +12,6 @@ public class MeController : PlayerController {
 	// Use this for initialization
 	public void Start () {
 		base.Start();
-	}
-
-	protected override void CreatePlayer() {
-		base.CreatePlayer();
-		
-		Player.Team = new TeamModel(Shared.teamId);
 	}
 
 	// Update is called once per frame
@@ -47,9 +42,24 @@ public class MeController : PlayerController {
 //		}
 
 		output += "\nmaps to : " + v.x + ",  " + v.y;
-		transform.position = new Vector3(v.x, 0.0f, v.y);
+//		transform.position = new Vector3(v.x, 0.0f, v.y);
 	}
 
+	protected IEnumerator SyncPosition ()
+	{
+		while(true) {
+			PutPosition ();
+			yield return new WaitForSeconds(SyncRate);
+		}
+	}
+	
+	protected IEnumerator PutPosition ()
+	{
+		string url = ServerPrefixUrl + "/api/Player/PutPlayer";
+		byte[] data = Encoding.ASCII.GetBytes (ToJson ());
+		WWW webClient = new WWW (url, data, _headers);
+		yield return webClient;
+	}
 
 	void OnGUI() {
 		base.OnGUI();
