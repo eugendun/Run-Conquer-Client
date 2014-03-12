@@ -1,15 +1,11 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\map\MapRequester.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\game\controller\PlayerController.cs">
     <Files>
-      <File FileName="Assets\util\GoogleMapsTransformation.cs" Line="21" Column="73" />
-      <File FileName="Assets\game\controller\PlayerController.cs" Line="115" Column="22" />
-      <File FileName="Assets\game\controller\MeController.cs" Line="27" Column="10" />
-      <File FileName="Assets\game\controller\GameController.cs" Line="77" Column="4" />
-      <File FileName="Assets\map\Map.cs" Line="69" Column="48" />
-      <File FileName="Assets\map\MapRequester.cs" Line="17" Column="2" />
-      <File FileName="Assets\map\MapListener.cs" Line="14" Column="2" />
-      <File FileName="Assets\map\MapTileController.cs" Line="21" Column="43" />
+      <File FileName="Assets\game\controller\PlayerController.cs" Line="24" Column="82" />
+      <File FileName="Assets\game\controller\MeController.cs" Line="1" Column="1" />
+      <File FileName="Assets\game\controller\GameController.cs" Line="49" Column="64" />
+      <File FileName="Assets\map\MapTileController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

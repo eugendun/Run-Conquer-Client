@@ -13,7 +13,36 @@ public class PlayerController : MonoBehaviour
     private const float SyncRate = 0.5f;
     private static readonly string ServerPrefixUrl = string.Format("http://{0}:{1}", ServerIp, ServerPort);
 
-	public string output = "";
+	private GameObject teamObject;
+	public GameObject TeamObject {
+		get {
+			return teamObject;
+		}
+		set {
+			teamObject = value;
+
+			// set team material
+			if (Player != null && Player.Team != null) {
+				string materialName = "";
+				switch (Player.Team.Id) {
+				case 0:
+					materialName = "teamRed";
+					break;
+				case 1:
+					materialName = "teamBlue";
+					break;
+				case 2:
+					materialName = "teamGreen";
+					break;
+				default:
+					materialName = "teamYellow";
+					break;
+				}
+
+				teamObject.renderer.material = Resources.Load<Material>("materials/" + materialName);
+			}
+		}
+	}
 
     private readonly Hashtable _headers = new Hashtable
     {
@@ -24,7 +53,10 @@ public class PlayerController : MonoBehaviour
     private PlayerModel _player;
 	public PlayerModel Player { get { return _player; } }
 
-    // Use this for initialization
+	public string output = "";
+
+
+	// Use this for initialization
     public void Start()
     {
         string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
@@ -47,12 +79,15 @@ public class PlayerController : MonoBehaviour
 
 		// set texture coords
 		TextureUnwrapper.unwrapUV(gameObject, new Vector2(1, 1), new Vector2(0.5f, 0.5f));
+		
+		// call setter for team object (in case it has been called before Start()) to choose team color
+		TeamObject = teamObject;
 
         //GetPosition();
         //PostPosition();
     }
 
-    private void CreatePlayer()
+    protected virtual void CreatePlayer()
     {
         string url = ServerPrefixUrl + "/api/Player/PostPlayer";
         byte[] postData = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(_player));

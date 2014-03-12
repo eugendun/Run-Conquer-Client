@@ -34,22 +34,24 @@ public class GameController : MonoBehaviour {
 		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
 		output = "created map at " + "(" + Shared.mapLatLon.x + ", " + Shared.mapLatLon.y + ")";
 
+		// TODO
 		// read player (opponents and me) models from game model and create controllers
 
-		// DEBUG
-		// create me game object
+		// create player object
+		GameObject playerGameObject = Instantiate(Resources.Load<GameObject>("playerPrefab")) as GameObject;
+		playerGameObject.AddComponent<MeshRenderer>();
 
-		// TODO
-		// create location requester and give it information to transform geo-coordinates into game-space
+		GameObject playerTeamGameObject = Instantiate(Resources.Load<GameObject>("playerTeamPrefab")) as GameObject;
+		playerTeamGameObject.AddComponent<MeshRenderer>();
 
-		GameObject meGameObject = Instantiate(Resources.Load<GameObject>("playerPrefab")) as GameObject; //GameObject.CreatePrimitive(PrimitiveType.Quad);
-		meGameObject.AddComponent<MeshRenderer>();
-//		GameObject meGameObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
-		meGameObject.transform.Rotate(0, 0, 0);
-		meGameObject.transform.localScale = new Vector3(50, 50, 50);
-		meGameObject.AddComponent<MeController>();
-		me = meGameObject.GetComponent<MeController>();
+		playerTeamGameObject.transform.parent = playerGameObject.transform;
+		playerGameObject.transform.Rotate(0, 0, 0);
+		playerGameObject.transform.localScale = new Vector3(50, 50, 50);
+		playerGameObject.AddComponent<MeController>();
+		me = playerGameObject.GetComponent<MeController>();
 		me.map = map;
+		me.TeamObject = playerTeamGameObject;
+
 	}
 
 	void OnGUI() {

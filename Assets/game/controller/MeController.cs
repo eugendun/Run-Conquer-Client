@@ -11,11 +11,11 @@ public class MeController : PlayerController {
 	// Use this for initialization
 	public void Start () {
 		base.Start();
-		Player.Team = new TeamModel(Shared.teamId);
+	}
 
-		// TODO
-		// start a timer that requests location and transforms itself
-		// (or sends it to server to wait until it sets all player's positions)
+	protected override void CreatePlayer() {
+		base.CreatePlayer();
+		
 		Player.Team = new TeamModel(Shared.teamId);
 	}
 
@@ -39,6 +39,12 @@ public class MeController : PlayerController {
 		Vector2 mapSize = map.getMapSize();
 		v.x *= mapSize.x;
 		v.y *= mapSize.y;
+
+//		// DEBUG
+//		if (Mathf.Abs(v.x - transform.position.x) < 17) {
+//			v.x = transform.position.x - 0.003f;
+//			v.y = transform.position.z + 0.003f;
+//		}
 
 		output += "\nmaps to : " + v.x + ",  " + v.y;
 		transform.position = new Vector3(v.x, 0.0f, v.y);

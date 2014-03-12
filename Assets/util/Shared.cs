@@ -4,7 +4,7 @@ using System.Collections;
 public class Shared {
 	public static string playerName = "Johannes";	// DEBUG. TODO: Adjust for other player deployment
 	public static bool creator = false;
-	public static int teamId;
+	public static int teamId = 0;
 	public static string gameName = "Mainz";		// DEBUG. TODO: Set name via create-menu
 
 	public static Vector2 mapLatLon;
