@@ -27,8 +27,8 @@ public class GameController : MonoBehaviour {
 		gameObject.AddComponent<Map>();
 		map = gameObject.GetComponent<Map>();
 //		map.spawnThis = spawnThis;// Resources.Load<Transform>("maptile");
-		map.tilesX = 16;
-		map.tilesY = 17;
+		map.tilesX = 14;
+		map.tilesY = 15;
 
 
 		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
@@ -51,7 +51,6 @@ public class GameController : MonoBehaviour {
 		me = playerGameObject.GetComponent<MeController>();
 		me.map = map;
 		me.TeamObject = playerTeamGameObject;
-
 	}
 
 	void OnGUI() {

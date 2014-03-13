@@ -9,7 +9,7 @@ public class Shared {
 
 	public static Vector2 mapLatLon;
 	public static Vector2 mapSize = new Vector2(4096, 4096);
-	public static int mapZoom = 17;
+	public static int mapZoom = 18;
 
 	private static LocationRequester locationRequester;
 	public static LocationRequester LocationRequester { get { return locationRequester; } }
