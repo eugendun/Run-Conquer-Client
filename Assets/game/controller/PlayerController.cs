@@ -8,8 +8,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 		//private const string ServerIp = "192.168.178.25";
-		protected const string ServerIp = "localhost";
-		protected const string ServerPort = "3010";
+        // http://h2231364.stratoserver.net:9013 remote server!!!
+        //protected const string ServerIp = "localhost";
+        //protected const string ServerPort = "3010";
+        protected const string ServerIp = "h2231364.stratoserver.net";
+        protected const string ServerPort = "9013";
 		protected const float SyncRate = 0.3f;
 		protected static readonly string ServerPrefixUrl = string.Format ("http://{0}:{1}", ServerIp, ServerPort);
 		protected GameObject teamObject;
@@ -99,10 +102,21 @@ public class PlayerController : MonoBehaviour
 		protected IEnumerator SyncPosition ()
 		{
 			while(true) {
-//				PutPosition ();
+                PutPosition();
 				yield return new WaitForSeconds(SyncRate);
 			}
 		}
+
+        protected void PutPosition()
+        {
+            string url = ServerPrefixUrl + "/api/Player/PutPlayer";
+            byte[] data = Encoding.ASCII.GetBytes(ToJson());
+            WWW webClient = new WWW(url, data, _headers);
+            //yield return webClient;
+            while (!webClient.isDone) {
+                // do nothing
+            }
+        }
 
 		public string ToJson ()
 		{
@@ -112,8 +126,8 @@ public class PlayerController : MonoBehaviour
 				jsonPlayer ["Id"].AsInt = _player.Id;
 				
 				var jsonPos = new JSONClass ();
-				jsonPos ["x"].AsFloat = _player.Position.x;
-				jsonPos ["y"].AsFloat = _player.Position.y;
+                jsonPos["x"].AsFloat = transform.position.x;
+                jsonPos["y"].AsFloat = transform.position.z;
 				jsonPlayer.Add("Position", jsonPos);
 				return jsonPlayer.ToString ();
 		}

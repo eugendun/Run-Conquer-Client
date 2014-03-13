@@ -45,21 +45,21 @@ public class MeController : PlayerController {
 //		transform.position = new Vector3(v.x, 0.0f, v.y);
 	}
 
-	protected IEnumerator SyncPosition ()
-	{
-		while(true) {
-			PutPosition ();
-			yield return new WaitForSeconds(SyncRate);
-		}
-	}
+    //protected IEnumerator SyncPosition ()
+    //{
+    //    while(true) {
+    //        PutPosition ();
+    //        yield return new WaitForSeconds(SyncRate);
+    //    }
+    //}
 	
-	protected IEnumerator PutPosition ()
-	{
-		string url = ServerPrefixUrl + "/api/Player/PutPlayer";
-		byte[] data = Encoding.ASCII.GetBytes (ToJson ());
-		WWW webClient = new WWW (url, data, _headers);
-		yield return webClient;
-	}
+    //protected IEnumerator PutPosition ()
+    //{
+    //    string url = ServerPrefixUrl + "/api/Player/PutPlayer";
+    //    byte[] data = Encoding.ASCII.GetBytes (ToJson ());
+    //    WWW webClient = new WWW (url, data, _headers);
+    //    yield return webClient;
+    //}
 
 	void OnGUI() {
 		base.OnGUI();
