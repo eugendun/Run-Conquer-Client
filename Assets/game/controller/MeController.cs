@@ -7,8 +7,6 @@ public class MeController : PlayerController {
 
 	private string errorOutput;
 
-	public Map map;
-
 	// Use this for initialization
 	public void Start () {
 		base.Start();
@@ -42,7 +40,7 @@ public class MeController : PlayerController {
 //		}
 
 		output += "\nmaps to : " + v.x + ",  " + v.y;
-//		transform.position = new Vector3(v.x, 0.0f, v.y);
+		transform.position = new Vector3(v.x, 0.0f, v.y);
 	}
 
     //protected IEnumerator SyncPosition ()

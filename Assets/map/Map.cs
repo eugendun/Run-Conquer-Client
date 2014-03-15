@@ -32,6 +32,8 @@ public class Map : MonoBehaviour {
 	private int zoom;
 	private Vector2 size;
 
+	public MapListener listener;
+
 	protected void Start() {
 		started = true;
 
@@ -85,6 +87,8 @@ public class Map : MonoBehaviour {
 					mapTiles.Add(mapTile);
 				}
 			}
+
+			mapRequester.addListener(listener);
 
 			// request map and calculate its bounds
 			mapRequester.Request(center, zoom, size);
