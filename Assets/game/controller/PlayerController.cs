@@ -71,13 +71,13 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	public void Start ()
 	{
-			string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
-			_player = new PlayerModel (uniqDeviceId.GetHashCode ());
-			
-			// DEBUG create team
-			_player.Team = new TeamModel(teamId);
-			
-			// choose player icon by player ID
+		string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
+		_player = new PlayerModel (uniqDeviceId.GetHashCode ());
+		
+		// DEBUG create team
+		_player.Team = new TeamModel(teamId);
+		
+		// choose player icon by player ID
 //				Texture2D tex = null;
 //				if (_player.Id == -1440738664 || _player.Id == -18546110) {
 //						tex = Resources.Load<Texture2D> ("textures/icon_johannes");
@@ -89,12 +89,14 @@ public class PlayerController : MonoBehaviour {
 //						tex = Resources.Load<Texture2D> ("textures/icon_default");
 //				}
 //				renderer.material.mainTexture = tex;
-			
-			// set texture coords
-			TextureUnwrapper.unwrapUV (gameObject, new Vector2 (1, 1), new Vector2 (0.5f, 0.5f));
-	
-			// call setter for team object (in case it has been called before Start()) to choose team color
-			TeamObject = teamObject;
+		
+		// set texture coords
+		TextureUnwrapper.unwrapUV (gameObject, new Vector2 (1, 1), new Vector2 (0.5f, 0.5f));
+
+		// call setter for team object (in case it has been called before Start()) to choose team color
+		TeamObject = teamObject;
+
+//		teamObject.tr localScale = Vector3.one;
 
 //				StartCoroutine(SyncPosition());
 	}
@@ -114,21 +116,21 @@ public class PlayerController : MonoBehaviour {
 	protected IEnumerator SyncPosition ()
 	{
 		while(true) {
-        PutPosition();
+        	PutPosition();
 			yield return new WaitForSeconds(SyncRate);
 		}
 	}
 
-protected void PutPosition()
-{
-    string url = ServerPrefixUrl + "/api/Player/PutPlayer";
-    byte[] data = Encoding.ASCII.GetBytes(ToJson());
-    WWW webClient = new WWW(url, data, _headers);
-    //yield return webClient;
-    while (!webClient.isDone) {
-        // do nothing
-    }
-}
+	protected void PutPosition()
+	{
+	    string url = ServerPrefixUrl + "/api/Player/PutPlayer";
+	    byte[] data = Encoding.ASCII.GetBytes(ToJson());
+	    WWW webClient = new WWW(url, data, _headers);
+	    //yield return webClient;
+	    while (!webClient.isDone) {
+	        // do nothing
+	    }
+	}
 
 	public string ToJson ()
 	{

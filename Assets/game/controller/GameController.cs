@@ -61,12 +61,12 @@ public class GameController : MonoBehaviour, MapListener {
 			playerGameObject.transform.Rotate(0, 0, 0);
 			playerGameObject.transform.localScale = new Vector3(50, 50, 50);
 			
-			if (i == Shared.teamId) {
-				playerGameObject.AddComponent<MeController>();
-				me = playerGameObject.GetComponent<MeController>();
-			} else {
-				playerGameObject.AddComponent<KIPlayerController>();
-			}
+//			if (i == Shared.teamId) {
+//				playerGameObject.AddComponent<MeController>();
+//				me = playerGameObject.GetComponent<MeController>();
+//			} else {
+				playerGameObject.AddComponent<FixPathPlayerController>();
+//			}
 			
 			PlayerController player = playerGameObject.GetComponent<PlayerController>();
 			players.Add(player);
@@ -77,7 +77,8 @@ public class GameController : MonoBehaviour, MapListener {
 		
 		// pass me to camera controller
 		CameraController cameraController = gameObject.GetComponent<CameraController>();
-		cameraController.player = me.transform;
+//		cameraController.player = me.transform;
+		cameraController.player = players[0].transform;
 	}
 
 //	void OnGUI() {
