@@ -144,11 +144,11 @@ protected void PutPosition()
 			return jsonPlayer.ToString ();
 	}
 
-	public void OnGUI ()
-	{
-			GUIStyle style = new GUIStyle (GUI.skin.label);
-			style.fontSize = 16;
-			GUI.Label (new Rect (10, 100, 1000, 900), output, style);
-			GUI.Label (new Rect (10, 300, 700, 200), "device id: ." + _player.Id + ".", style);
-	}
+//	public void OnGUI ()
+//	{
+//			GUIStyle style = new GUIStyle (GUI.skin.label);
+//			style.fontSize = 16;
+//			GUI.Label (new Rect (10, 100, 1000, 900), output, style);
+//			GUI.Label (new Rect (10, 300, 700, 200), "device id: ." + _player.Id + ".", style);
+//	}
 }

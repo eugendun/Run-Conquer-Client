@@ -80,9 +80,9 @@ public class GameController : MonoBehaviour, MapListener {
 		cameraController.player = me.transform;
 	}
 
-	void OnGUI() {
-		GUI.Label(new Rect(700, 20, 300, 300), output);
-	}
+//	void OnGUI() {
+//		GUI.Label(new Rect(700, 20, 300, 300), output);
+//	}
 	
 	// Update is called once per frame
 	void Update () {

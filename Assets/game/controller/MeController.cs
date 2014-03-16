@@ -59,8 +59,8 @@ public class MeController : PlayerController {
     //    yield return webClient;
     //}
 
-	void OnGUI() {
-		base.OnGUI();
-		GUI.Label(new Rect(10, 10, 400, 900), errorOutput);
-	}
+//	void OnGUI() {
+//		base.OnGUI();
+//		GUI.Label(new Rect(10, 10, 400, 900), errorOutput);
+//	}
 }
