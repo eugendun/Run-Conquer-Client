@@ -16,7 +16,7 @@ public class MenuTeamSelection : MonoBehaviour {
 
 	void LoadGame() {
 
-		Application.LoadLevel("game");
+		Application.LoadLevel("menuRoadMap");
 	}
 	
 	void OnGUI() {

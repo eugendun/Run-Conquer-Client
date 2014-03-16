@@ -59,6 +59,7 @@
      <Compile Include="Assets\map\MapModel.cs" />
      <Compile Include="Assets\map\MapRequester.cs" />
      <Compile Include="Assets\map\MapTileController.cs" />
+     <Compile Include="Assets\menu\MenuRoadMap.cs" />
      <Compile Include="Assets\menu\MenuStart.cs" />
      <Compile Include="Assets\menu\MenuTeamSelection.cs" />
      <Compile Include="Assets\test\HexTestController.cs" />
