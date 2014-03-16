@@ -13,11 +13,11 @@ public class FixPathPlayerController : PlayerController {
 //		new List<Vector2> { new Vector2(0.5f, 0.5f) }
 //	};
 
-	private static List<float> speedList = new List<float> { 0.01f, 0.013f, 0.005f, 0.015f };
+	private static List<float> speedList = new List<float> { 0.005f, 0.006f, 0.003f, 0.013f };
 	private float speed;
 	private GameObject targetMapTile;
 	private static int scene = 0;
-	private List<float> sceneTimes = new List<float> { 10, 10, 10, 10 };
+	private List<float> sceneTimes = new List<float> { 25, 20, 20, 20 };
 	private static float passedSceneTime = 0;
 
 	private List<int> lastTiles;
@@ -187,9 +187,16 @@ public class FixPathPlayerController : PlayerController {
 				if (targetMapTile != null) {
 					Vector3 direction = targetMapTile.transform.position - transform.position;
 
+					// player 3 upwards
 					if (Player.Team.Id == 3) {
 						direction.x = 0;
 						direction.z = 1;
+					}
+
+					// player 1 to the right
+					if (scene == 0 && Player.Team.Id == 1) {
+						direction.x = 1;
+						direction.z = -0.2f;
 					}
 
 					direction.y = 0;

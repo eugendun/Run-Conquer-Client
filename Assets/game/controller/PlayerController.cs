@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour {
 		// call setter for team object (in case it has been called before Start()) to choose team color
 		TeamObject = teamObject;
 
+		transform.localScale = transform.localScale * 1.3f;
 //		teamObject.tr localScale = Vector3.one;
 
 //				StartCoroutine(SyncPosition());

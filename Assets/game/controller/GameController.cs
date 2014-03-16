@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour, MapListener {
 		// pass me to camera controller
 		CameraController cameraController = gameObject.GetComponent<CameraController>();
 //		cameraController.player = me.transform;
-		cameraController.player = players[0].transform;
+//		cameraController.player = players[0].transform;
 	}
 
 //	void OnGUI() {
