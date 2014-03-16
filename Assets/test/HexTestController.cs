@@ -20,7 +20,7 @@ public class HexTestController : MonoBehaviour, MapListener {
 		foreach (GameObject mapTile in map.MapTiles) {
 			Material templateMaterial = Resources.Load<Material> ("materials/teamSilver");
 			Material material = new Material(templateMaterial);
-			float color = 1;
+			float color = Random.value;
 			material.color = new Color(color, color, color);
 			mapTile.renderer.material = material;
 		}
