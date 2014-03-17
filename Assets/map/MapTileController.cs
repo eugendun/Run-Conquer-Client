@@ -17,7 +17,6 @@ public class MapTileController : MonoBehaviour, MapListener {
 	public List<PlayerController> occupants = new List<PlayerController>();
 
 	private Texture texture;
-	public bool locked = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,13 +27,6 @@ public class MapTileController : MonoBehaviour, MapListener {
 		renderer.material.color = Color.white;
 		this.texture = texture;
 	}
-
-	// DEBUG
-	public void setMaterial(Material mtl) {
-		renderer.material = new Material(mtl);
-		renderer.material.mainTexture = texture;
-		locked = true;
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -43,7 +35,7 @@ public class MapTileController : MonoBehaviour, MapListener {
 			owner = occupants[0];
 		}
 
-		if (owner != null && team != owner.Player.Team && !locked) {
+		if (owner != null && team != owner.Player.Team) {
 			team = owner.Player.Team;
 			renderer.material = new Material(owner.TeamObject.renderer.material);
 			renderer.material.mainTexture = texture;

@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 			teamObject = value;
 			
 			// set team material
-			if (Player != null && Player.Team != null) {
+			if (teamObject != null && Player != null && Player.Team != null) {
 				string materialName = "";
 				Texture2D tex = null;
 				switch (Player.Team.Id) {
@@ -59,11 +59,10 @@ public class PlayerController : MonoBehaviour {
         {"Type", "PUT"},
         {"Content-Type", "application/json; charset=utf-8"}
     };
+
 	private PlayerModel _player;
+	public PlayerModel Player { get { return _player; } set { _player = value; TeamObject = teamObject; } }
 
-	public PlayerModel Player { get { return _player; } }
-
-	public int teamId;
 
 	public string output = "";
 
@@ -71,25 +70,6 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	public void Start ()
 	{
-		string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
-		_player = new PlayerModel (uniqDeviceId.GetHashCode ());
-		
-		// DEBUG create team
-		_player.Team = new TeamModel(teamId);
-		
-		// choose player icon by player ID
-//				Texture2D tex = null;
-//				if (_player.Id == -1440738664 || _player.Id == -18546110) {
-//						tex = Resources.Load<Texture2D> ("textures/icon_johannes");
-//				} else if (_player.Id == 1234 /* TODO Eugen's ID */) {
-//						tex = Resources.Load<Texture2D> ("textures/icon_eugen");
-//				} else if (_player.Id == 5678 /* TODO Duong's ID */) {
-//						tex = Resources.Load<Texture2D> ("textures/icon_duong");
-//				} else {
-//						tex = Resources.Load<Texture2D> ("textures/icon_default");
-//				}
-//				renderer.material.mainTexture = tex;
-		
 		// set texture coords
 		TextureUnwrapper.unwrapUV (gameObject, new Vector2 (1, 1), new Vector2 (0.5f, 0.5f));
 
@@ -99,6 +79,7 @@ public class PlayerController : MonoBehaviour {
 		transform.localScale = transform.localScale * 1.3f;
 //		teamObject.tr localScale = Vector3.one;
 
+		// FIXME
 //				StartCoroutine(SyncPosition());
 	}
 

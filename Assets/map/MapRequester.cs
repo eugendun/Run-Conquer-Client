@@ -47,8 +47,8 @@ public class MapRequester : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void OnGUI () {
-		Rect rect = new Rect(300, 250, 700, 800);
-		GUI.Label(rect, output);
-	}
+//	void OnGUI () {
+//		Rect rect = new Rect(300, 250, 700, 800);
+//		GUI.Label(rect, output);
+//	}
 }

@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour, MapListener {
 //		MapModel mapModel = new MapModel();
 //		mapModel.Id = 10002;
 //
-//		gameModel = new GameInstanceModel();
+		gameModel = new GameInstanceModel();
 //		gameModel.Id = 10001;
 //		gameModel.Map = mapModel;
 
@@ -48,9 +48,17 @@ public class GameController : MonoBehaviour, MapListener {
 	}
 	
 	public void mapDidLoad(Texture2D texture) {
-		// DEBUG
-		// create one player for each team
-		for (int i = 0; i < 4; i++) {
+
+		// FIXME DEBUG create one player
+		string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
+		PlayerModel model = new PlayerModel(uniqDeviceId.GetHashCode());
+		model.Team = new TeamModel(0);
+		gameModel.Players.Add(model);
+		// END FIXME
+
+
+		// create players
+		foreach (PlayerModel playerModel in gameModel.Players) {
 			GameObject playerGameObject = Instantiate(Resources.Load<GameObject>("playerPrefab")) as GameObject;
 			playerGameObject.AddComponent<MeshRenderer>();
 			
@@ -61,24 +69,23 @@ public class GameController : MonoBehaviour, MapListener {
 			playerGameObject.transform.Rotate(0, 0, 0);
 			playerGameObject.transform.localScale = new Vector3(50, 50, 50);
 			
-//			if (i == Shared.teamId) {
-//				playerGameObject.AddComponent<MeController>();
-//				me = playerGameObject.GetComponent<MeController>();
-//			} else {
-				playerGameObject.AddComponent<FixPathPlayerController>();
-//			}
+			if (playerModel.Id == uniqDeviceId.GetHashCode()) {
+				playerGameObject.AddComponent<MeController>();
+				me = playerGameObject.GetComponent<MeController>();
+			} else {
+				playerGameObject.AddComponent<PlayerController>();
+			}
 			
 			PlayerController player = playerGameObject.GetComponent<PlayerController>();
 			players.Add(player);
-			player.teamId = i;
+			player.Player = playerModel;
 			player.map = map;
 			player.TeamObject = playerTeamGameObject;
 		}
 		
 		// pass me to camera controller
 		CameraController cameraController = gameObject.GetComponent<CameraController>();
-//		cameraController.player = me.transform;
-//		cameraController.player = players[0].transform;
+		cameraController.player = me.transform;
 	}
 
 //	void OnGUI() {
@@ -87,10 +94,6 @@ public class GameController : MonoBehaviour, MapListener {
 	
 	// Update is called once per frame
 	void Update () {
-		// transform camera such that is always on top of ME
-		Vector3 pos = transform.position;
-//		me.transform.position = new Vector3(mapCreator.getMapSize().x/2, 0.0f, mapCreator.getMapSize().y/2);
-//		transform.position = new Vector3(me.transform.position.x, pos.y, me.transform.position.z);
 
 		// flip map tile
 		if (map.MapTiles != null) {
