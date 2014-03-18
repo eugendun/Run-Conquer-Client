@@ -94,7 +94,7 @@ public class GameController : MonoBehaviour, MapListener {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		// flip map tile
 		if (map.MapTiles != null) {
 			foreach (GameObject mapTile in map.MapTiles) {

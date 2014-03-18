@@ -14,27 +14,35 @@ public class MenuTeamSelection : MonoBehaviour {
 	
 	}
 
-	void LoadGame() {
+	void Next() {
 
-		Application.LoadLevel("game");
+		if (Shared.creator) {
+			Application.LoadLevel("menuConfigure");
+		} else {
+			Application.LoadLevel("menuWaitingRoom");
+		}
 	}
 	
 	void OnGUI() {
-		if (GUI.Button(new Rect(0, 0, 1080, 200), "Red", Shared.ButtonStyle)) {
+		
+		// title
+		GUI.Label(new Rect(0, 0, 1080, 100), "Select Team", Shared.TitleStyle);
+		
+		if (GUI.Button(new Rect(240, 200, 640, 300), "Rette", Shared.ButtonStyle)) {
 			Shared.teamId = 0;
-			LoadGame();
+			Next();
 		}
-		if (GUI.Button(new Rect(0, 200, 1080, 200), "Blue", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 600, 640, 300), "Bloo", Shared.ButtonStyle)) {
 			Shared.teamId = 1;
-			LoadGame();
+			Next();
 		}
-		if (GUI.Button(new Rect(0, 400, 1080, 200), "Green", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 1000, 640, 300), "Griene", Shared.ButtonStyle)) {
 			Shared.teamId = 2;
-			LoadGame();
+			Next();
 		}
-		if (GUI.Button(new Rect(0, 600, 1080, 200), "Silver", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 1400, 640, 300), "Yello", Shared.ButtonStyle)) {
 			Shared.teamId = 3;
-			LoadGame();
+			Next();
 		}
 	}
 }

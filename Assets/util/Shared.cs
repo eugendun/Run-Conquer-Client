@@ -32,7 +32,7 @@ public class Shared {
 	public static GUIStyle ButtonStyle {
 		get {
 			GUIStyle style = new GUIStyle(GUI.skin.button);
-			style.fontSize = 24;
+			style.fontSize = 48;
 			return style;
 		}
 	}
@@ -40,7 +40,17 @@ public class Shared {
 	public static GUIStyle LabelStyle {
 		get {
 			GUIStyle style = new GUIStyle(GUI.skin.label);
-			style.fontSize = 24;
+			style.fontSize = 48;
+			style.alignment = TextAnchor.MiddleCenter;
+			return style;
+		}
+	}
+	
+	public static GUIStyle TitleStyle {
+		get {
+			GUIStyle style = new GUIStyle(GUI.skin.label);
+			style.fontSize = 64;
+			style.fontStyle = FontStyle.Bold;
 			style.alignment = TextAnchor.MiddleCenter;
 			return style;
 		}

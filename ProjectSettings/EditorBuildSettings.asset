@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/menu/menuRoadMap.unity
   - enabled: 1
     path: Assets/game/view/game.unity
+  - enabled: 1
+    path: Assets/menu/menuConfigure.unity
