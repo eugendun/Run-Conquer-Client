@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
+using AssemblyCSharp;
 
 public class MenuTeamSelection : MonoBehaviour {
 

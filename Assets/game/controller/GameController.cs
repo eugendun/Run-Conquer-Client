@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;
+using System.Text;
 
 public class GameController : MonoBehaviour {
+    protected const float SyncRate = 0.7f;
 
 //	public Transform spawnThis;
 	private MeController me;
@@ -48,10 +50,38 @@ public class GameController : MonoBehaviour {
 		playerGameObject.transform.Rotate(0, 0, 0);
 		playerGameObject.transform.localScale = new Vector3(50, 50, 50);
 		playerGameObject.AddComponent<MeController>();
-		me = playerGameObject.GetComponent<MeController>();
+		
+        me = playerGameObject.GetComponent<MeController>();
 		me.map = map;
 		me.TeamObject = playerTeamGameObject;
+
+        StartCoroutine(SyncGame());
 	}
+
+    protected IEnumerator SyncGame()
+    {
+        while (true) {
+            RefreshGameOnServer();
+            yield return new WaitForSeconds(SyncRate);
+        }
+    }
+
+    private void RefreshGameOnServer()
+    {
+        Debug.Log("Ref player count: "+Shared.gameInstance.Players.Count);
+        string apiCall = Shared.GetApiCallUrl(string.Format("GameInstance/PutGameInstance/{0}", Shared.gameInstance.Id));
+        var data = Encoding.ASCII.GetBytes(Shared.gameInstance.ToJson());
+        WWW webClient = new WWW(apiCall, data, Shared._headers);
+        while (!webClient.isDone) {
+            // wait until request is done
+        }
+        if (!string.IsNullOrEmpty(webClient.error)) {
+            throw new UnityException("Game instance could not be created on the server!");
+        }
+        string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
+        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
+        Shared.gameInstance = game;
+    }
 
 	void OnGUI() {
 		GUI.Label(new Rect(700, 20, 300, 300), output);

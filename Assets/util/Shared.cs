@@ -1,7 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AssemblyCSharp;
 
 public class Shared {
+    // server connection
+    //private const string ServerIp = "h2231364.stratoserver.net";
+    //private const string ServerPort = "9013";
+    private const string ServerIp = "localhost";
+    private const string ServerPort = "3010";
+    private static readonly string ServerPrefixUrl = string.Format("http://{0}:{1}/api", ServerIp, ServerPort);
+    public static Hashtable _headers = new Hashtable
+	{
+	    {"Type", "PUT"},
+	    {"Content-Type", "application/json; charset=utf-8"}
+	};
+
+    public static GameInstanceModel gameInstance = null;
+    public static PlayerModel player = null;
+
 	public static string playerName = "Johannes";	// DEBUG. TODO: Adjust for other player deployment
 	public static bool creator = false;
 	public static int teamId = 0;
@@ -24,6 +40,10 @@ public class Shared {
 		}
 	}
 
+    public static string GetApiCallUrl(string apiCall)
+    {
+        return string.Format("{0}/{1}", ServerPrefixUrl, apiCall);
+    }
 
 	//####################################################################################################
 	//###  Styles  #######################################################################################

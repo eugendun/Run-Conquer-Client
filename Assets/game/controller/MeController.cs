@@ -42,6 +42,7 @@ public class MeController : PlayerController {
 //		}
 
 		output += "\nmaps to : " + v.x + ",  " + v.y;
+        base.Update();
 //		transform.position = new Vector3(v.x, 0.0f, v.y);
 	}
 

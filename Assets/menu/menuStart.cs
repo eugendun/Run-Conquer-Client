@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using AssemblyCSharp;
+using System.Text;
 
 public class MenuStart : MonoBehaviour {
 
@@ -29,8 +30,12 @@ public class MenuStart : MonoBehaviour {
 		if (decided && !Shared.LocationRequester.LocationEnabled) {
 			GUI.Label(new Rect(0, 900, 1080, 100), "Requesting location, please wait ... ", Shared.LabelStyle);
 		} else {
-			if (GUI.Button(new Rect(0, 0, 1080, 800), "Create Game", Shared.ButtonStyle)) {
-				Shared.creator = true;
+			if (GUI.Button(new Rect(0, 0, 1080, 800), "Create Game", Shared.ButtonStyle)) {                
+				CreateNewGame();
+                SetupTeams();
+                SetupMap();
+                RefreshGameOnServer();
+                Shared.creator = true;
 				decided = true;
 			}
 			if (GUI.Button(new Rect(0, 800, 1080, 800), "Join Game", Shared.ButtonStyle)) {
@@ -39,4 +44,47 @@ public class MenuStart : MonoBehaviour {
 			}
 		}
 	}
+
+    private void RefreshGameOnServer()
+    {
+        string apiCall = Shared.GetApiCallUrl(string.Format("GameInstance/PutGameInstance/{0}", Shared.gameInstance.Id));
+        var data = Encoding.ASCII.GetBytes(Shared.gameInstance.ToJson());
+        WWW webClient = new WWW(apiCall, data, Shared._headers);
+        while (!webClient.isDone) {
+            // wait until request is done
+        }
+        if (!string.IsNullOrEmpty(webClient.error)) {
+            throw new UnityException("Game instance could not be created on the server!");
+        }
+        string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
+        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
+        Shared.gameInstance = game;
+    }
+
+    private void SetupMap()
+    {
+        Shared.gameInstance.Map = new MapModel();
+    }
+
+    private void SetupTeams()
+    {
+        Shared.gameInstance.Teams.Add(new TeamModel(1) { Name = "Red Team", Color = "red" });
+        Shared.gameInstance.Teams.Add(new TeamModel(2) { Name = "Blue Team", Color = "blue" });
+    }
+
+    private void CreateNewGame()
+    {
+        string apiCall = Shared.GetApiCallUrl("GameInstance/PostGameInstance");
+        var data = Encoding.ASCII.GetBytes("{}");   // send an empty json object to create new game instance
+        WWW webClient = new WWW(apiCall, data, Shared._headers);
+        while (!webClient.isDone) {
+            // wait until request is done
+        }
+        if (!string.IsNullOrEmpty(webClient.error)) {
+            throw new UnityException("Game instance could not be created on the server!");
+        }
+        string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
+        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
+        //Shared.gameInstance = game;
+    }
 }

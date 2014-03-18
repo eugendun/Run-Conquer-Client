@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
         //protected const string ServerPort = "3010";
         protected const string ServerIp = "h2231364.stratoserver.net";
         protected const string ServerPort = "9013";
-		protected const float SyncRate = 0.3f;
 		protected static readonly string ServerPrefixUrl = string.Format ("http://{0}:{1}", ServerIp, ServerPort);
+        protected const float SyncRate = 0.3f;
 		protected GameObject teamObject;
 
 		public GameObject TeamObject {
@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
 		{
 				string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
 				_player = new PlayerModel (uniqDeviceId.GetHashCode ());
+                Shared.gameInstance.Players.Add(_player);
 
 				// choose player icon by player ID
 				Texture2D tex = null;
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
 				// call setter for team object (in case it has been called before Start()) to choose team color
 				TeamObject = teamObject;
 
-				StartCoroutine(SyncPosition());
+                //StartCoroutine(SyncPosition());
 		}
 
 
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
             WWW webClient = new WWW(url, data, _headers);
             //yield return webClient;
             while (!webClient.isDone) {
-                // do nothing
+                // wait until request is done
             }
         }
 
