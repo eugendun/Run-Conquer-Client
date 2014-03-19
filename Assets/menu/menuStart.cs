@@ -37,8 +37,6 @@ public class menuStart : MonoBehaviour {
 		} else {
             if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.32f, Screen.width * 0.5f, Screen.height * 0.16f), "Create Game", Shared.ButtonStyle)) {
 				CreateNewGame();
-                SetupTeams();
-                SetupMap();
                 RefreshGameOnServer();
 				Shared.creator = true;
 				decided = true;
@@ -66,17 +64,6 @@ public class menuStart : MonoBehaviour {
         Shared.gameInstance = game;
     }
 
-    private void SetupMap()
-    {
-        Shared.gameInstance.Map = new MapModel();
-		}
-
-    private void SetupTeams()
-    {
-        Shared.gameInstance.Teams.Add(new TeamModel(1) { Name = "Red Team", Color = "red" });
-        Shared.gameInstance.Teams.Add(new TeamModel(2) { Name = "Blue Team", Color = "blue" });
-    }
-
     private void CreateNewGame()
     {
         string apiCall = Shared.GetApiCallUrl("GameInstance/PostGameInstance");
@@ -90,6 +77,6 @@ public class menuStart : MonoBehaviour {
         }
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
-        //Shared.gameInstance = game;
+        Shared.gameInstance = game;
 	}
 }

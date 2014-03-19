@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour, MapListener {
 
 	private Map map;
 
-	private GameInstanceModel gameModel;
 	private List<PlayerController> players = new List<PlayerController>();
 
 	private Texture2D headerTexture;
@@ -25,23 +24,8 @@ public class GameController : MonoBehaviour, MapListener {
 	// Use this for initialization
     void Start()
     {
-//		MapModel mapModel = new MapModel();
-//		mapModel.Id = 10002;
-//
-		gameModel = new GameInstanceModel();
-//		gameModel.Id = 10001;
-//		gameModel.Map = mapModel;
-
-		// TODO
-		// create map with coordinates from game model
-//		gameModel.Map.
-
-		// DEBUG
-//		Vector2 center = new Vector2(49.9945287f, 8.2630081f);
-//		int     zoom   = 17;
 		gameObject.AddComponent<Map>();
 		map = gameObject.GetComponent<Map>();
-//		map.spawnThis = spawnThis;// Resources.Load<Transform>("maptile");
 		map.tilesX = 14;
 		map.tilesY = 15;
 
@@ -53,26 +37,14 @@ public class GameController : MonoBehaviour, MapListener {
 		iconTexture   = Resources.Load<Texture2D>("/textures/iTunesArtwork");
 
 		leftTime = Shared.playTime;
-
-		// TODO
-		// read player (opponents and me) models from game model and create controllers
-
-		// create players, when map has been loaded
 	}
 	
     public void mapDidLoad(Texture2D texture)
     {
-
-		// FIXME DEBUG create one player
 		string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
-		PlayerModel model = new PlayerModel(uniqDeviceId.GetHashCode());
-		model.Team = new TeamModel(0);
-		gameModel.Players.Add(model);
-		// END FIXME
-
 
 		// create players
-		foreach (PlayerModel playerModel in gameModel.Players) {
+		foreach (PlayerModel playerModel in Shared.gameInstance.Players) {
 			GameObject playerGameObject = Instantiate(Resources.Load<GameObject>("playerPrefab")) as GameObject;
 			playerGameObject.AddComponent<MeshRenderer>();
 			
@@ -130,10 +102,6 @@ public class GameController : MonoBehaviour, MapListener {
         Shared.gameInstance = game;
     }
 
-    //	void OnGUI() {
-    //		GUI.Label(new Rect(700, 20, 300, 300), output);
-    //	}
-
 	// Update is called once per frame
     void Update()
     {
@@ -142,7 +110,7 @@ public class GameController : MonoBehaviour, MapListener {
 
 		if (leftTime <= 0) {
 			// TODO
-//			evaluate winning Team And // load win screen
+            // evaluate winning Team And // load win screen
 		}
 
 		// flip map tile
