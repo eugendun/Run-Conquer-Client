@@ -5,7 +5,7 @@ using AssemblyCSharp;
 using System.Text;
 
 public class GameController : MonoBehaviour, MapListener {
-    protected const float SyncRate = 0.7f;
+    protected const float SyncRate = 1.0f;
 
 	private MeController me;
 
@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour, MapListener {
 		iconTexture   = Resources.Load<Texture2D>("/textures/iTunesArtwork");
 
 		leftTime = Shared.playTime;
+
+        StartCoroutine(SyncGame());
 	}
 	
     public void mapDidLoad(Texture2D texture)
@@ -57,8 +59,6 @@ public class GameController : MonoBehaviour, MapListener {
 			
 			if (playerModel.Id == uniqDeviceId.GetHashCode()) {
 				playerGameObject.AddComponent<MeController>();
-
-				me = playerGameObject.GetComponent<MeController>();
 			} else {
 				playerGameObject.AddComponent<PlayerController>();
 			}

@@ -42,6 +42,7 @@ public class menuStart : MonoBehaviour {
 				decided = true;
 			}
             if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.66f, Screen.width * 0.5f, Screen.height * 0.16f), "Join Game", Shared.ButtonStyle)) {
+                LoadGame();
 				Shared.creator = false;
 				decided = true;
 			}
@@ -79,4 +80,20 @@ public class menuStart : MonoBehaviour {
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
         Shared.gameInstance = game;
 	}
+
+    private void LoadGame()
+    {
+        string apiCall = Shared.GetApiCallUrl("GameInstance/GetLastGameInstance");
+        var data = Encoding.ASCII.GetBytes("{}");   // send an empty json object
+        WWW webClient = new WWW(apiCall);
+        while (!webClient.isDone) {
+            // wait until request is done
+        }
+        if (!string.IsNullOrEmpty(webClient.error)) {
+            throw new UnityException("Game instance could not be created on the server!");
+        }
+        string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
+        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
+        Shared.gameInstance = game;
+    }
 }

@@ -42,10 +42,11 @@ public class MenuWaitingRoom : MonoBehaviour
         if (Shared.gameInstance.Players.Count > 0) {
             GUI.BeginScrollView(new Rect(Screen.width * 0.2f, Screen.height * 0.25f, Screen.width * 0.6f, Screen.height * 0.75f), scrollPosition, new Rect(0, 0, Screen.width * 0.6f, Screen.height * 0.75f));
 
-            int heightOffset = 1;
+            int heightOffset = 0;
             foreach (var player in Shared.gameInstance.Players) {
-                GUI.Label(new Rect(0, 0, Screen.width * 0.2f * heightOffset, Screen.height * 0.1f), player.Id.ToString());
-                GUI.Label(new Rect(Screen.width * 0.4f, 0, Screen.width * 0.2f * heightOffset, Screen.height * 0.1f), "unknown");
+                GUI.Label(new Rect(0, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), player.Id.ToString());
+                GUI.Label(new Rect(Screen.width * 0.4f, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), "unknown");
+                Debug.Log(heightOffset);
                 heightOffset++;
             }
 
@@ -53,11 +54,11 @@ public class MenuWaitingRoom : MonoBehaviour
         }
 
         // next button
-        if (Shared.creator) {
+        //if (Shared.creator) {
             if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.8f, Screen.width * 0.6f, Screen.height * 0.1f), "Next", Shared.ButtonStyle)) {
                 Application.LoadLevel("game");
             }
-        }
+        //}
     }
 
     private void AddPlayerToGame()
@@ -65,7 +66,9 @@ public class MenuWaitingRoom : MonoBehaviour
         string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
         PlayerModel player = new PlayerModel(uniqDeviceId.GetHashCode());
         player.Team = new TeamModel(0);
-        Shared.gameInstance.Players.Add(player);
+        if (!Shared.gameInstance.Players.Contains(player)) {
+            Shared.gameInstance.Players.Add(player); 
+        }
     }
 
     protected IEnumerator SyncGame()
