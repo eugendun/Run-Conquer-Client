@@ -27,6 +27,7 @@ public class MenuStart : MonoBehaviour {
 
 		// title
 		GUI.Label(new Rect(0, 0, 1080, 100), "Run & Conquer", Shared.TitleStyle);
+		GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 
 		// show waiting screen until location has been tracked
 		if (decided && !Shared.LocationRequester.LocationEnabled) {

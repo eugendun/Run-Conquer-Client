@@ -39,6 +39,7 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 		
 		// title
 		GUI.Label(new Rect(0, 0, 1080, 100), "Configure Game", Shared.TitleStyle);
+		GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 
 		if (mapTexture != null) {
 			GUI.DrawTexture(new Rect(0, 120, 1080, 1080), mapTexture);

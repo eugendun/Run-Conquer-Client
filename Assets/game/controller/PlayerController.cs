@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 			if (teamObject != null && Player != null && Player.Team != null) {
 				string materialName = "";
 				Texture2D tex = null;
-				switch (Player.Team.Id) {
+				switch (Player.Team.internalId) {
 				case 0:
 					materialName = "teamRed";
 					tex = Resources.Load<Texture2D> ("textures/icon_0");

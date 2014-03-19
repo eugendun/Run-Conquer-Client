@@ -14,6 +14,9 @@ public class MeController : PlayerController {
 
 	// Update is called once per frame
 	void Update () {
+		if (Shared.LocationRequester == null) {
+			return;
+		}
 		Vector2 location = Shared.LocationRequester.GetLocation();
 
 		Rect latLonBounds = map.LatLonBounds;

@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class MenuWaitingRoom : MonoBehaviour {
-
 	// Use this for initialization
 	void Start () {
 	
@@ -25,6 +24,7 @@ public class MenuWaitingRoom : MonoBehaviour {
 		
 		// title
 		GUI.Label(new Rect(0, 0, 1080, 100), "Waiting Room", Shared.TitleStyle);
+		GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 		
 		GUI.Label(new Rect(50, 150, 500, 60), "Player", Shared.ListLabelStyle);
 		GUI.Label(new Rect(800, 150, 300, 60), "Team", Shared.ListLabelStyle);

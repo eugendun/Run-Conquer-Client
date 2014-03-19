@@ -3,7 +3,7 @@ using System.Collections;
 using AssemblyCSharp;
 
 public class MenuTeamSelection : MonoBehaviour {
-
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -27,6 +27,7 @@ public class MenuTeamSelection : MonoBehaviour {
 		
 		// title
 		GUI.Label(new Rect(0, 0, 1080, 100), "Select Team", Shared.TitleStyle);
+		GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 		
 		if (GUI.Button(new Rect(240, 200, 640, 300), Shared.teamNames[0], Shared.ButtonStyle)) {
 			Shared.teamId = 0;
