@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 using AssemblyCSharp;
 
 public class MenuTeamSelection : MonoBehaviour {
@@ -13,7 +14,7 @@ public class MenuTeamSelection : MonoBehaviour {
 	void Update () {
 	
 	}
-
+	
 	void Next() {
 
 		if (Shared.creator) {

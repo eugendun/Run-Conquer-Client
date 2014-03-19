@@ -1,22 +1,14 @@
-using System;
+using SimpleJSON;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
+using UnityEngine;
 
 namespace AssemblyCSharp
 {
     public class GameInstanceModel
     {
-        [JsonSerializable]
         public int Id { get; set; }
-
-        [JsonSerializable]
         public MapModel Map{ get; set;}
-
-        [JsonSerializable]
         public ICollection<PlayerModel> Players{ get; set;}
-
-        [JsonSerializable]
         public ICollection<TeamModel> Teams{ get; set;}
 
         public GameInstanceModel()
@@ -66,6 +58,68 @@ namespace AssemblyCSharp
             }
         }
 
+        public string ToJson()
+        {
+            var jsonGame = new JSONClass();
+            jsonGame["Id"].AsInt = Id;
+            
+            var jsonMap = new JSONClass();
+            //jsonMap["Id"].AsInt = Map.Id;
+            //jsonGame.Add("Map", jsonMap);
+
+            //var jsonTeams = new JSONArray();
+            //foreach (var team in Teams) {
+            //    var jsonTeam = new JSONClass();
+            //    jsonTeam["Id"].AsInt = team.Id;
+            //    jsonTeam["Color"].Value = team.Color;
+            //    jsonTeam["Name"].Value = team.Name;
+            //    jsonTeam["GameInstanceId"].AsInt = this.Id;
+                
+            //    var jsonPlayers = new JSONArray();
+            //    jsonTeam.Add("Players", jsonPlayers);
+
+            //    jsonTeams.Add(jsonTeam);
+            //}
+            //jsonGame.Add("Teams", jsonTeams);
+
+            if (this.Players.Count > 0) {
+                var jsonPlayers = new JSONArray();
+                foreach (var player in this.Players) {
+                    var jsonPlayer = new JSONClass();
+                    jsonPlayer["Id"].AsInt = player.Id;
+
+                    var jsonPosition = new JSONClass();
+                    jsonPosition["x"].AsFloat = player.Position.x;
+                    jsonPosition["y"].AsFloat = player.Position.y;
+                    jsonPlayer.Add("Position", jsonPosition);
+
+                    jsonPlayers.Add(jsonPlayer);
+                }
+                jsonGame.Add("Players", jsonPlayers); 
+            }            
+
+            return jsonGame.ToString();
+        }
+
+        public static GameInstanceModel FromJson(string json) { 
+            var game = new GameInstanceModel();
+
+            var jsonGame = JSON.Parse(json);
+            game.Id = jsonGame["Id"].AsInt;
+            Debug.Log("GameId:"+game.Id);
+
+            //var jsonPlayers = (jsonGame["Players"].AsObject)["$values"].AsArray;
+            var jsonPlayers = jsonGame["Players"].AsArray;
+            Debug.Log("Players:" + jsonPlayers.Count);
+            foreach (JSONNode jsonPlayer in jsonPlayers) {
+                int id = jsonPlayer["Id"].AsInt;
+                var jsonPosition = jsonPlayer["Position"].AsObject;
+                float x = jsonPosition["x"].AsFloat;
+                float y = jsonPosition["y"].AsFloat;
+                Debug.Log(string.Format("PlayerId:{0}, x:{1}, y{2}", id, x, y));
+            }
+            return game;
+        }
 
     }
 }
