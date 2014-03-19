@@ -37,8 +37,6 @@ public class GameController : MonoBehaviour, MapListener {
 		iconTexture   = Resources.Load<Texture2D>("/textures/iTunesArtwork");
 
 		leftTime = Shared.playTime;
-
-        StartCoroutine(SyncGame());
 	}
 	
     public void mapDidLoad(Texture2D texture)
@@ -59,6 +57,8 @@ public class GameController : MonoBehaviour, MapListener {
 			
 			if (playerModel.Id == uniqDeviceId.GetHashCode()) {
 				playerGameObject.AddComponent<MeController>();
+
+                me = playerGameObject.GetComponent<MeController>();
 			} else {
 				playerGameObject.AddComponent<PlayerController>();
 			}
@@ -71,8 +71,8 @@ public class GameController : MonoBehaviour, MapListener {
 		}
 		
 		// pass me to camera controller
-		CameraController cameraController = gameObject.GetComponent<CameraController>();
-		cameraController.player = me.transform;
+        CameraController cameraController = gameObject.GetComponent<CameraController>();
+        cameraController.player = me.transform;
 
         StartCoroutine(SyncGame());
     }
@@ -87,6 +87,13 @@ public class GameController : MonoBehaviour, MapListener {
 
     private void RefreshGameOnServer()
     {
+        // as players in the list are decoupled from the shared game instance, we have to update position explicitly
+        // find foreach player in the shared game instance and update the player position in the shared game instance
+        foreach (var player in Shared.gameInstance.Players) {
+            var playerToUpdate = players.Find(p => p.Player.Id == player.Id);
+            player.Position = playerToUpdate.Player.Position;
+        }
+
         Debug.Log("Ref player count: " + Shared.gameInstance.Players.Count);
         string apiCall = Shared.GetApiCallUrl(string.Format("GameInstance/PutGameInstance/{0}", Shared.gameInstance.Id));
         var data = Encoding.ASCII.GetBytes(Shared.gameInstance.ToJson());
@@ -100,6 +107,13 @@ public class GameController : MonoBehaviour, MapListener {
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
         Shared.gameInstance = game;
+
+        // as players in the list are decoupled from the shared game instance, we have to update position explicitly
+        // find foreach player in the shared game instance and update the corresponded player model in the player list
+        foreach (var player in Shared.gameInstance.Players) {
+            var playerToUpdate = players.Find(p => p.Player.Id == player.Id);
+            playerToUpdate.Player.Position = player.Position;
+        }
     }
 
 	// Update is called once per frame
