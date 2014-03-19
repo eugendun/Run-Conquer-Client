@@ -11,6 +11,10 @@ public class Shared {
 	public static Vector2 mapSize = new Vector2(4096, 4096);
 	public static int mapZoom = 18;
 
+	public static float playTime = 10;		// in seconds
+
+	public static string[] teamNames = new string[] { "Rette", "Bloo", "Griene", "Yello" };
+
 	private static LocationRequester locationRequester;
 	public static LocationRequester LocationRequester { get { return locationRequester; } }
 
@@ -42,6 +46,15 @@ public class Shared {
 			GUIStyle style = new GUIStyle(GUI.skin.label);
 			style.fontSize = 48;
 			style.alignment = TextAnchor.MiddleCenter;
+			return style;
+		}
+	}
+	
+	public static GUIStyle ListLabelStyle {
+		get {
+			GUIStyle style = new GUIStyle(GUI.skin.label);
+			style.fontSize = 48;
+			style.alignment = TextAnchor.MiddleLeft;
 			return style;
 		}
 	}

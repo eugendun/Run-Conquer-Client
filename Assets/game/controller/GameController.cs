@@ -5,7 +5,6 @@ using AssemblyCSharp;
 
 public class GameController : MonoBehaviour, MapListener {
 
-//	public Transform spawnThis;
 	private MeController me;
 
 	private Map map;
@@ -13,7 +12,13 @@ public class GameController : MonoBehaviour, MapListener {
 	private GameInstanceModel gameModel;
 	private List<PlayerController> players = new List<PlayerController>();
 
+	private Texture2D headerTexture;
+	private Texture2D iconTexture;
+
+	private float leftTime;
+
 	private string output;
+
 
 	// Use this for initialization
 	void Start () {
@@ -40,6 +45,11 @@ public class GameController : MonoBehaviour, MapListener {
 		map.listener = this;
 		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
 		output = "created map at " + "(" + Shared.mapLatLon.x + ", " + Shared.mapLatLon.y + ")";
+
+		headerTexture = Resources.Load<Texture2D>("/textures/game_header");
+		iconTexture   = Resources.Load<Texture2D>("/textures/iTunesArtwork");
+
+		leftTime = Shared.playTime;
 
 		// TODO
 		// read player (opponents and me) models from game model and create controllers
@@ -87,14 +97,17 @@ public class GameController : MonoBehaviour, MapListener {
 		CameraController cameraController = gameObject.GetComponent<CameraController>();
 		cameraController.player = me.transform;
 	}
-
-//	void OnGUI() {
-//		GUI.Label(new Rect(700, 20, 300, 300), output);
-//	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		leftTime -= Time.deltaTime;
+
+		if (leftTime <= 0) {
+			// TODO
+//			evaluate winning Team And // load win screen
+		}
+
 		// flip map tile
 		if (map.MapTiles != null) {
 			foreach (GameObject mapTile in map.MapTiles) {
@@ -108,5 +121,17 @@ public class GameController : MonoBehaviour, MapListener {
 				}
 			}
 		}
+	}
+	
+	void OnGUI() {
+		GUI.DrawTexture(new Rect(0, 0, 1080, 150), headerTexture);
+		
+		// title (time)
+		int minutes = (int)(leftTime) % 60;
+		int seconds = (int)(leftTime - (minutes * 60));
+		string minutesString = (minutes < 10)? "0" + minutes : minutes.ToString();
+		string secondsString = (seconds < 10)? "0" + seconds : seconds.ToString();
+
+		GUI.Label(new Rect(0, 0, 1080, 100), minutesString + ":" + secondsString + " min", Shared.TitleStyle);
 	}
 }

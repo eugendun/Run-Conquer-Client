@@ -63,6 +63,7 @@
      <Compile Include="Assets\menu\MenuRoadMap.cs" />
      <Compile Include="Assets\menu\MenuStart.cs" />
      <Compile Include="Assets\menu\MenuTeamSelection.cs" />
+     <Compile Include="Assets\menu\MenuWaitingRoom.cs" />
      <Compile Include="Assets\test\HexTestController.cs" />
      <Compile Include="Assets\util\GoogleMapsTransformation.cs" />
      <Compile Include="Assets\util\JsonSerializableAttribute.cs" />
