@@ -38,33 +38,33 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 	void OnGUI() {
 		
 		// title
-		GUI.Label(new Rect(0, 0, 1080, 100), "Configure Game", Shared.TitleStyle);
+        GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Configure Game", Shared.TitleStyle);
 
 		if (mapTexture != null) {
-			GUI.DrawTexture(new Rect(0, 120, 1080, 1080), mapTexture);
+            GUI.DrawTexture(new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.8f), mapTexture);
 		}
 
 		// zoom buttons
-		if (GUI.Button(new Rect(0, 1200, 540, 150), "-", Shared.ButtonStyle)) {
+        if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.85f, Screen.width * 0.2f, Screen.height * 0.04f), "-", Shared.ButtonStyle)) {
 			zoom = Mathf.Max(0, zoom - 1);
 			RequestMap();
 		}
-		if (GUI.Button(new Rect(540, 1200, 540, 150), "+", Shared.ButtonStyle)) {
+        if (GUI.Button(new Rect(Screen.width * 0.6f, Screen.height * 0.85f, Screen.width * 0.2f, Screen.height * 0.04f), "+", Shared.ButtonStyle)) {
 			zoom = Mathf.Min(19, zoom + 1);
 			RequestMap();
 		}
 		
 		// time buttons
-		if (GUI.Button(new Rect(0, 1400, 400, 150), "-", Shared.ButtonStyle)) {
+        if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.04f), "-", Shared.ButtonStyle)) {
 			time = Mathf.Max(5, time - 5);
 		}
 		GUI.Label(new Rect(400, 1400, 280, 150), time + " min", Shared.LabelStyle);
-		if (GUI.Button(new Rect(680, 1400, 400, 150), "+", Shared.ButtonStyle)) {
+        if (GUI.Button(new Rect(Screen.width * 0.6f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.04f), "+", Shared.ButtonStyle)) {
 			time += 5;
 		}
 
 		// next
-		if (GUI.Button(new Rect(0, 1600, 1080, 150), "Next", Shared.ButtonStyle)) {
+        if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.95f, Screen.width * 0.6f, Screen.height * 0.04f), "Next", Shared.ButtonStyle)) {
 			Next();
 		}
 	}

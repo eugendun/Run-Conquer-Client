@@ -6,7 +6,6 @@ using System.Text;
 
 public class GameController : MonoBehaviour, MapListener {
     protected const float SyncRate = 0.7f;
-{
 
 	private MeController me;
 

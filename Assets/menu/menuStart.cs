@@ -2,7 +2,7 @@
 using AssemblyCSharp;
 using System.Text;
 
-public class MenuStart : MonoBehaviour {
+public class menuStart : MonoBehaviour {
 
 	private bool decided = false;
 
@@ -26,14 +26,16 @@ public class MenuStart : MonoBehaviour {
 
 	void OnGUI() {
 
+        Debug.Log(Screen.width + ", " + Screen.height);
+
 		// title
-		GUI.Label(new Rect(0, 0, 1080, 100), "Run & Conquer", Shared.TitleStyle);
+        GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Run & Conquer", Shared.TitleStyle);
 
 		// show waiting screen until location has been tracked
 		if (decided && !Shared.LocationRequester.LocationEnabled) {
-			GUI.Label(new Rect(0, 900, 1080, 100), "Requesting location, please wait ... ", Shared.LabelStyle);
+            GUI.Label(new Rect(0, Screen.height * 0.9f, Screen.width, Screen.height * 0.1f), "Requesting location, please wait ... ", Shared.LabelStyle);
 		} else {
-            if (GUI.Button(new Rect(240, 600, 640, 300), "Create Game", Shared.ButtonStyle)) {
+            if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.32f, Screen.width * 0.5f, Screen.height * 0.16f), "Create Game", Shared.ButtonStyle)) {
 				CreateNewGame();
                 SetupTeams();
                 SetupMap();
@@ -41,7 +43,7 @@ public class MenuStart : MonoBehaviour {
 				Shared.creator = true;
 				decided = true;
 			}
-			if (GUI.Button(new Rect(240, 1000, 640, 300), "Join Game", Shared.ButtonStyle)) {
+            if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.66f, Screen.width * 0.5f, Screen.height * 0.16f), "Join Game", Shared.ButtonStyle)) {
 				Shared.creator = false;
 				decided = true;
 			}
