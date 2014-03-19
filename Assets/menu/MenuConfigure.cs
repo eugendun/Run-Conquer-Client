@@ -7,6 +7,7 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 	private Texture2D mapTexture;
 
 	private int zoom = 17;
+	private int time = 5;		// in minutes
 
 	// Use this for initialization
 	void Start () {
@@ -29,9 +30,8 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 
 	void Next() {
 		Shared.mapZoom = zoom;
-		//Application.LoadLevel("menuWaitingRoom");
-		// FIXME
-		Application.LoadLevel("game");
+		Shared.playTime = time * 60;
+		Application.LoadLevel("menuWaitingRoom");
 	}
 
 
@@ -50,12 +50,21 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 			RequestMap();
 		}
 		if (GUI.Button(new Rect(540, 1200, 540, 150), "+", Shared.ButtonStyle)) {
-			zoom = Mathf.Max(19, zoom + 1);
+			zoom = Mathf.Min(19, zoom + 1);
 			RequestMap();
+		}
+		
+		// time buttons
+		if (GUI.Button(new Rect(0, 1400, 400, 150), "-", Shared.ButtonStyle)) {
+			time = Mathf.Max(5, time - 5);
+		}
+		GUI.Label(new Rect(400, 1400, 280, 150), time + " min", Shared.LabelStyle);
+		if (GUI.Button(new Rect(680, 1400, 400, 150), "+", Shared.ButtonStyle)) {
+			time += 5;
 		}
 
 		// next
-		if (GUI.Button(new Rect(240, 1500, 640, 300), "Next", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(0, 1600, 1080, 150), "Next", Shared.ButtonStyle)) {
 			Next();
 		}
 	}

@@ -29,19 +29,19 @@ public class MenuTeamSelection : MonoBehaviour {
 		// title
 		GUI.Label(new Rect(0, 0, 1080, 100), "Select Team", Shared.TitleStyle);
 		
-		if (GUI.Button(new Rect(240, 200, 640, 300), "Rette", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 200, 640, 300), Shared.teamNames[0], Shared.ButtonStyle)) {
 			Shared.teamId = 0;
 			Next();
 		}
-		if (GUI.Button(new Rect(240, 600, 640, 300), "Bloo", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 600, 640, 300), Shared.teamNames[1], Shared.ButtonStyle)) {
 			Shared.teamId = 1;
 			Next();
 		}
-		if (GUI.Button(new Rect(240, 1000, 640, 300), "Griene", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 1000, 640, 300), Shared.teamNames[2], Shared.ButtonStyle)) {
 			Shared.teamId = 2;
 			Next();
 		}
-		if (GUI.Button(new Rect(240, 1400, 640, 300), "Yello", Shared.ButtonStyle)) {
+		if (GUI.Button(new Rect(240, 1400, 640, 300), Shared.teamNames[3], Shared.ButtonStyle)) {
 			Shared.teamId = 3;
 			Next();
 		}
