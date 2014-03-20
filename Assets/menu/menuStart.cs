@@ -18,7 +18,11 @@ public class menuStart : MonoBehaviour {
 			// DEBUG: create map parameters, if creator
 			if (Shared.creator) {
 				Shared.mapLatLon = Shared.LocationRequester.GetLocation();
-			}
+			} else {
+                Shared.mapLatLon = Shared.gameInstance.Map.LatLon;
+                Shared.mapZoom = Shared.gameInstance.Map.Zoom;
+                Shared.mapSize = Shared.gameInstance.Map.Size;
+            }
 
 			Application.LoadLevel("menuTeamSelection");
 		}

@@ -91,7 +91,9 @@ public class GameController : MonoBehaviour, MapListener {
         // find foreach player in the shared game instance and update the player position in the shared game instance
         foreach (var player in Shared.gameInstance.Players) {
             var playerToUpdate = players.Find(p => p.Player.Id == player.Id);
-            player.Position = playerToUpdate.Player.Position;
+            if (playerToUpdate != null) {
+                player.Position = playerToUpdate.Player.Position; 
+            }
         }
 
         Debug.Log("Ref player count: " + Shared.gameInstance.Players.Count);
@@ -112,7 +114,9 @@ public class GameController : MonoBehaviour, MapListener {
         // find foreach player in the shared game instance and update the corresponded player model in the player list
         foreach (var player in Shared.gameInstance.Players) {
             var playerToUpdate = players.Find(p => p.Player.Id == player.Id);
-            playerToUpdate.Player.Position = player.Position;
+            if (playerToUpdate != null) {
+                playerToUpdate.Player.Position = player.Position; 
+            }
         }
     }
 

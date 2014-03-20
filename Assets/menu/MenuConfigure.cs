@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AssemblyCSharp;
+using System.Text;
 
 public class MenuConfigure : MonoBehaviour, MapListener {
 
@@ -31,7 +33,11 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 	void Next() {
 		Shared.mapZoom = zoom;
 		Shared.playTime = time * 60;
-		Application.LoadLevel("menuWaitingRoom");
+        
+        Shared.gameInstance.Map = new MapModel { LatLon = Shared.mapLatLon, Size = Shared.mapSize, Zoom = zoom };
+        RefreshGameOnServer();
+		
+        Application.LoadLevel("menuWaitingRoom");
 	}
 
 
@@ -68,4 +74,21 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 			Next();
 		}
 	}
+
+
+    private void RefreshGameOnServer()
+    {
+        string apiCall = Shared.GetApiCallUrl(string.Format("GameInstance/PutGameInstance/{0}", Shared.gameInstance.Id));
+        var data = Encoding.ASCII.GetBytes(Shared.gameInstance.ToJson());
+        WWW webClient = new WWW(apiCall, data, Shared._headers);
+        while (!webClient.isDone) {
+            // wait until request is done
+        }
+        if (!string.IsNullOrEmpty(webClient.error)) {
+            throw new UnityException("Game instance could not be created on the server!");
+        }
+        string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
+        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
+        Shared.gameInstance = game;
+    }
 }

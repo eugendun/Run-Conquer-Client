@@ -62,7 +62,25 @@ namespace AssemblyCSharp
         {
             var jsonGame = new JSONClass();
             jsonGame["Id"].AsInt = Id;
-            
+
+            if (Map != null) {
+                var jsonMap = new JSONClass();
+                jsonMap["Id"].AsInt = Map.Id;
+                jsonMap["Zoom"].AsInt = Map.Zoom;
+
+                var jsonLatLon = new JSONClass();
+                jsonLatLon["x"].AsFloat = Map.LatLon.x;
+                jsonLatLon["y"].AsFloat = Map.LatLon.y;
+                jsonMap.Add("LatLon", jsonLatLon);
+
+                var jsonSize = new JSONClass();
+                jsonSize["x"].AsFloat = Map.Size.x;
+                jsonSize["y"].AsFloat = Map.Size.y;
+                jsonMap.Add("Size", jsonSize);
+
+                jsonGame.Add("Map", jsonMap);
+            }
+
             if (this.Players.Count > 0) {
                 var jsonPlayers = new JSONArray();
                 foreach (var player in this.Players) {
@@ -96,6 +114,21 @@ namespace AssemblyCSharp
                 float y = jsonPosition["y"].AsFloat;
                 game.Players.Add(new PlayerModel(id) { Position = new Vector2 { x = x, y = y } });
             }
+
+            var jsonMap = jsonGame["Map"].AsObject;
+            if (jsonMap != null) {
+                var mapId = jsonMap["Id"].AsInt;
+                var mapZoom = jsonMap["Zoom"].AsInt;
+                var jsonLatLon = jsonMap["LatLon"].AsObject;
+                float latLonX = jsonLatLon["x"].AsFloat;
+                float latLonY = jsonLatLon["y"].AsFloat;
+                var jsonSize = jsonMap["Size"].AsObject;
+                float sizeX = jsonSize["x"].AsFloat;
+                float sizeY = jsonSize["y"].AsFloat;
+                game.Map = new MapModel { Id = mapId, Zoom = mapZoom, LatLon = new Vector2 { x = latLonX, y = latLonY }, Size = new Vector2 { x = sizeX, y = sizeY } };
+                Debug.Log("Map: " + game.Map.Id + " LatLon: " + game.Map.LatLon + " Size: " + game.Map.Size + " Zoom: " + game.Map.Zoom);
+            }
+
             return game;
         }
 

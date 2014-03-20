@@ -40,10 +40,10 @@ public class MeController : PlayerController {
 //		}
 
 		output += "\nmaps to : " + v.x + ",  " + v.y;
-        //transform.position = new Vector3(v.x, 0.0f, v.y);
+        transform.position = new Vector3(v.x, 0.0f, v.y);
 
         base.Update();
-        Debug.Log("PlayerPos: " + this.Player.Position);
+        //Debug.Log("PlayerPos: " + this.Player.Position);
 
 	}
 
