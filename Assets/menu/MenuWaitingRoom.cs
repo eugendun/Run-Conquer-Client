@@ -8,27 +8,27 @@ public class MenuWaitingRoom : MonoBehaviour
     private  float SyncRate = 0.7f;
     private Vector2 scrollPosition = Vector2.zero;
 
-    // Use this for initialization
+	// Use this for initialization
     void Start()
     {
         if (Shared.gameInstance == null) {
             throw new UnityException("There is no game instance!");
         }
-
+	
         AddPlayerToGame();
         StartCoroutine(SyncGame());
-    }
-
-    // Update is called once per frame
+	}
+	
+	// Update is called once per frame
     void Update()
     {
-        // TODO if not creator, wait for event to start game (maybe just a state inside shared e.g.)
-        // FIXME
-        //		if (Shared.gameInstance.gameStarted) {
-        //			Application.LoadLevel("game");
-        //		}
-    }
-
+		// TODO if not creator, wait for event to start game (maybe just a state inside shared e.g.)
+		// FIXME
+//		if (Shared.gameInstance.gameStarted) {
+//			Application.LoadLevel("game");
+//		}
+	}
+	
     void OnGUI()
     {
 
@@ -48,11 +48,10 @@ public class MenuWaitingRoom : MonoBehaviour
                 GUI.Label(new Rect(Screen.width * 0.4f, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), "unknown");
                 Debug.Log(heightOffset);
                 heightOffset++;
-            }
-
+	
             GUI.EndScrollView(); 
         }
-
+        
         // next button
         //if (Shared.creator) {
             if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.8f, Screen.width * 0.6f, Screen.height * 0.1f), "Next", Shared.ButtonStyle)) {
@@ -60,6 +59,8 @@ public class MenuWaitingRoom : MonoBehaviour
             }
         //}
     }
+		
+
 
     private void AddPlayerToGame()
     {
@@ -78,7 +79,7 @@ public class MenuWaitingRoom : MonoBehaviour
             yield return new WaitForSeconds(SyncRate);
         }
     }
-
+		
     private void RefreshGameOnServer()
     {
         //Debug.Log("Ref player count: " + Shared.gameInstance.Players.Count);
@@ -87,13 +88,13 @@ public class MenuWaitingRoom : MonoBehaviour
         WWW webClient = new WWW(apiCall, data, Shared._headers);
         while (!webClient.isDone) {
             // wait until request is done
-        }
+			}
         if (!string.IsNullOrEmpty(webClient.error)) {
             throw new UnityException("Game instance could not be created on the server!");
-        }
+		}
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
         //Debug.Log("PlayerCount from response game: " + game.Players.Count);
         Shared.gameInstance = game;
-    }
+	}
 }

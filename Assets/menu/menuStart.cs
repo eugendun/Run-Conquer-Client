@@ -22,7 +22,7 @@ public class menuStart : MonoBehaviour {
                 Shared.mapLatLon = Shared.gameInstance.Map.LatLon;
                 Shared.mapZoom = Shared.gameInstance.Map.Zoom;
                 Shared.mapSize = Shared.gameInstance.Map.Size;
-            }
+			}
 
 			Application.LoadLevel("menuTeamSelection");
 		}
@@ -34,6 +34,7 @@ public class menuStart : MonoBehaviour {
 
 		// title
         GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Run & Conquer", Shared.TitleStyle);
+        GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 
 		// show waiting screen until location has been tracked
 		if (decided && !Shared.LocationRequester.LocationEnabled) {
@@ -79,7 +80,7 @@ public class menuStart : MonoBehaviour {
         }
         if (!string.IsNullOrEmpty(webClient.error)) {
             throw new UnityException("Game instance could not be created on the server!");
-        }
+		}
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
         Shared.gameInstance = game;
@@ -99,5 +100,5 @@ public class menuStart : MonoBehaviour {
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
         Shared.gameInstance = game;
-    }
+	}
 }

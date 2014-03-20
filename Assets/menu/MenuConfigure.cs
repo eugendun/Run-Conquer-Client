@@ -37,7 +37,7 @@ public class MenuConfigure : MonoBehaviour, MapListener {
         Shared.gameInstance.Map = new MapModel { LatLon = Shared.mapLatLon, Size = Shared.mapSize, Zoom = zoom };
         RefreshGameOnServer();
 		
-        Application.LoadLevel("menuWaitingRoom");
+		Application.LoadLevel("menuWaitingRoom");
 	}
 
 
@@ -45,6 +45,7 @@ public class MenuConfigure : MonoBehaviour, MapListener {
 		
 		// title
         GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Configure Game", Shared.TitleStyle);
+        GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 
 		if (mapTexture != null) {
             GUI.DrawTexture(new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.8f), mapTexture);
@@ -90,5 +91,5 @@ public class MenuConfigure : MonoBehaviour, MapListener {
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
         Shared.gameInstance = game;
-    }
+	}
 }

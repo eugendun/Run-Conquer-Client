@@ -17,3 +17,5 @@ EditorBuildSettings:
     path: Assets/menu/menuConfigure.unity
   - enabled: 1
     path: Assets/menu/menuWaitingRoom.unity
+  - enabled: 1
+    path: Assets/menu/menuWin.unity

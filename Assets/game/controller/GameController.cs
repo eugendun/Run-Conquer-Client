@@ -33,8 +33,8 @@ public class GameController : MonoBehaviour, MapListener {
 		map.Create(Shared.mapLatLon, Shared.mapZoom, Shared.mapSize);
 		output = "created map at " + "(" + Shared.mapLatLon.x + ", " + Shared.mapLatLon.y + ")";
 
-		headerTexture = Resources.Load<Texture2D>("/textures/game_header");
-		iconTexture   = Resources.Load<Texture2D>("/textures/iTunesArtwork");
+		headerTexture = Resources.Load<Texture2D>("textures/game_header");
+		iconTexture   = Resources.Load<Texture2D>("textures/iTunesArtwork");
 
 		leftTime = Shared.playTime;
 	}
@@ -42,6 +42,10 @@ public class GameController : MonoBehaviour, MapListener {
     public void mapDidLoad(Texture2D texture)
     {
 		string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
+
+		// TODO: @Eugen It is important, that me gets that team which internalId matches Shared.teamId.
+		// Shared.teamId is this one, which was chosen inside menu. Team with internalId 0 is red (Rette), 1 is blue (Bloo), ... 3 is yellow (Yello)
+		// Maybe, create all four Teams here (internalId is automatically set) and choose that one for ME with matching internalId
 
 		// create players
 		foreach (PlayerModel playerModel in Shared.gameInstance.Players) {
@@ -58,7 +62,7 @@ public class GameController : MonoBehaviour, MapListener {
 			if (playerModel.Id == uniqDeviceId.GetHashCode()) {
 				playerGameObject.AddComponent<MeController>();
 
-                me = playerGameObject.GetComponent<MeController>();
+				me = playerGameObject.GetComponent<MeController>();
 			} else {
 				playerGameObject.AddComponent<PlayerController>();
 			}
@@ -71,12 +75,12 @@ public class GameController : MonoBehaviour, MapListener {
 		}
 		
 		// pass me to camera controller
-        CameraController cameraController = gameObject.GetComponent<CameraController>();
-        cameraController.player = me.transform;
+		CameraController cameraController = gameObject.GetComponent<CameraController>();
+		cameraController.player = me.transform;
 
         StartCoroutine(SyncGame());
-    }
-
+	}
+	
     protected IEnumerator SyncGame()
     {
         while (true) {
@@ -123,12 +127,28 @@ public class GameController : MonoBehaviour, MapListener {
 	// Update is called once per frame
     void Update()
     {
-		
+
 		leftTime -= Time.deltaTime;
 
 		if (leftTime <= 0) {
-			// TODO
-            // evaluate winning Team And // load win screen
+			// evaluate winning team
+			int[] teamAccu = new int[] { 0, 0, 0, 0 };
+			foreach (GameObject mapTile in map.MapTiles) {
+				MapTileController mapTileController = mapTile.GetComponent<MapTileController>();
+				if (mapTileController.team != null) {
+					teamAccu[mapTileController.team.internalId]++;
+				}
+			}
+			int maxValue = 0;
+			int maxTeamId = 0;
+			for (int i = 0; i < 4; i++) {
+				if (teamAccu[i] > maxValue) {
+					maxValue = teamAccu[i];
+					maxTeamId = i;
+				}
+			}
+			Shared.winningTeamId = maxTeamId;
+			Application.LoadLevel("menuWin");
 		}
 
 		// flip map tile
@@ -147,10 +167,11 @@ public class GameController : MonoBehaviour, MapListener {
 	}
 	
 	void OnGUI() {
-		GUI.DrawTexture(new Rect(0, 0, 1080, 150), headerTexture);
+		GUI.DrawTexture(new Rect(0, 0, 1080, 120), headerTexture);
+		GUI.DrawTexture(new Rect(10, 10, 100, 100), iconTexture);
 		
 		// title (time)
-		int minutes = (int)(leftTime) % 60;
+		int minutes = (int)(leftTime) / 60;
 		int seconds = (int)(leftTime - (minutes * 60));
 		string minutesString = (minutes < 10)? "0" + minutes : minutes.ToString();
 		string secondsString = (seconds < 10)? "0" + seconds : seconds.ToString();

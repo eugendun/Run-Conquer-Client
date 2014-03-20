@@ -5,10 +5,13 @@ namespace AssemblyCSharp
 {
     public class TeamModel
     {
+		public static int teamIdCounter = 0;
+
         public int Id;
-        public string Color;
-        public string Name;
-        public ICollection<PlayerModel> Players;
+		public int internalId;
+        public string Color;						// not used yet
+        public string Name;							// not used yet
+		public ICollection<PlayerModel> Players;	// not used yet
 
         private GameInstanceModel _gameInstance;
         public GameInstanceModel GameInstance{
@@ -32,6 +35,9 @@ namespace AssemblyCSharp
             var obsPlayerCollection = new ObservableCollection<PlayerModel>(new List<PlayerModel>());
             obsPlayerCollection.CollectionChanged += HandleCollectionChanged;
             Players = obsPlayerCollection;
+
+			internalId = teamIdCounter;
+			teamIdCounter++;
         }
 
         void HandleCollectionChanged(object sender, ObservableCollectionEventArgs e)
