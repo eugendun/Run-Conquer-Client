@@ -28,7 +28,7 @@ public class MenuWaitingRoom : MonoBehaviour
 //			Application.LoadLevel("game");
 //		}
 	}
-	
+
     void OnGUI()
     {
 
@@ -48,16 +48,17 @@ public class MenuWaitingRoom : MonoBehaviour
                 GUI.Label(new Rect(Screen.width * 0.4f, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), "unknown");
                 Debug.Log(heightOffset);
                 heightOffset++;
-	
-            GUI.EndScrollView(); 
-        }
-        
-        // next button
-        //if (Shared.creator) {
+
+                GUI.EndScrollView();
+            }
+
+            // next button
+            //if (Shared.creator) {
             if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.8f, Screen.width * 0.6f, Screen.height * 0.1f), "Next", Shared.ButtonStyle)) {
                 Application.LoadLevel("game");
             }
-        //}
+            //}
+        }
     }
 		
 
