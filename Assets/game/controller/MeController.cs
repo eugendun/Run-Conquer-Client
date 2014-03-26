@@ -46,8 +46,6 @@ public class MeController : PlayerController {
         transform.position = new Vector3(v.x, 0.0f, v.y);
 
         base.Update();
-        //Debug.Log("PlayerPos: " + this.Player.Position);
-
 	}
 
     //protected IEnumerator SyncPosition ()

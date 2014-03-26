@@ -29,9 +29,6 @@ public class menuStart : MonoBehaviour {
 	}
 
 	void OnGUI() {
-
-        Debug.Log(Screen.width + ", " + Screen.height);
-
 		// title
         GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Run & Conquer", Shared.TitleStyle);
         GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);

@@ -14,7 +14,12 @@ public class MenuWaitingRoom : MonoBehaviour
         if (Shared.gameInstance == null) {
             throw new UnityException("There is no game instance!");
         }
-	
+
+        if (!Shared.gameInstance.StartDate.HasValue || !Shared.gameInstance.EndDate.HasValue)
+        {
+            throw new UnityException("Invalid GameInstance configuration! StartDate or EndDate have not been set");
+        }
+
         AddPlayerToGame();
         StartCoroutine(SyncGame());
 	}
@@ -44,13 +49,14 @@ public class MenuWaitingRoom : MonoBehaviour
 
             int heightOffset = 0;
             foreach (var player in Shared.gameInstance.Players) {
+
                 GUI.Label(new Rect(0, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), player.Id.ToString());
                 GUI.Label(new Rect(Screen.width * 0.4f, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), "unknown");
-                Debug.Log(heightOffset);
                 heightOffset++;
-
-                GUI.EndScrollView();
+               
             }
+
+            GUI.EndScrollView();
 
             // next button
             //if (Shared.creator) {
@@ -83,7 +89,6 @@ public class MenuWaitingRoom : MonoBehaviour
 		
     private void RefreshGameOnServer()
     {
-        //Debug.Log("Ref player count: " + Shared.gameInstance.Players.Count);
         string apiCall = Shared.GetApiCallUrl(string.Format("GameInstance/PutGameInstance/{0}", Shared.gameInstance.Id));
         var data = Encoding.ASCII.GetBytes(Shared.gameInstance.ToJson());
         WWW webClient = new WWW(apiCall, data, Shared._headers);
@@ -95,7 +100,6 @@ public class MenuWaitingRoom : MonoBehaviour
 		}
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
         GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
-        //Debug.Log("PlayerCount from response game: " + game.Players.Count);
         Shared.gameInstance = game;
 	}
 }

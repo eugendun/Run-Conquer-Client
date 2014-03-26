@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using System;
 
 public class Shared {
     // server connection
@@ -17,6 +18,9 @@ public class Shared {
 
     public static GameInstanceModel gameInstance = null;
     public static PlayerModel player = null;
+
+    public static DateTime StartDate = DateTime.Now;
+    public static DateTime EndDate = StartDate.AddHours(1.0);
 
 	public static string playerName = "Johannes";	// DEBUG. TODO: Adjust for other player deployment
 	public static bool creator = false;

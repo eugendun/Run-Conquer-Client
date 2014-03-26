@@ -117,19 +117,17 @@ public class PlayerController : MonoBehaviour {
 	    }
 	}
 
-	public string ToJson ()
-	{
-			Debug.Log(transform.position);
+    public string ToJson()
+    {
+        var jsonPlayer = new JSONClass();
+        jsonPlayer["Id"].AsInt = _player.Id;
 
-			var jsonPlayer = new JSONClass ();
-			jsonPlayer ["Id"].AsInt = _player.Id;
-			
-			var jsonPos = new JSONClass ();
+        var jsonPos = new JSONClass();
         jsonPos["x"].AsFloat = transform.position.x;
         jsonPos["y"].AsFloat = transform.position.z;
-			jsonPlayer.Add("Position", jsonPos);
-			return jsonPlayer.ToString ();
-	}
+        jsonPlayer.Add("Position", jsonPos);
+        return jsonPlayer.ToString();
+    }
 
 //	public void OnGUI ()
 //	{

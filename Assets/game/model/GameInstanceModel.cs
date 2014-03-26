@@ -1,5 +1,7 @@
 using SimpleJSON;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 namespace AssemblyCSharp
@@ -8,6 +10,11 @@ namespace AssemblyCSharp
     {
         public int Id { get; set; }
         public MapModel Map{ get; set;}
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
         public ICollection<PlayerModel> Players{ get; set;}
         public ICollection<TeamModel> Teams{ get; set;}
 
@@ -95,8 +102,11 @@ namespace AssemblyCSharp
                     jsonPlayers.Add(jsonPlayer);
                 }
                 jsonGame.Add("Players", jsonPlayers); 
-            }            
+            }
 
+            jsonGame["StartDate"] = StartDate.HasValue ? StartDate.Value.ToString() : "";
+            jsonGame["EndDate"] = EndDate.HasValue ? EndDate.Value.ToString() : "";
+            
             return jsonGame.ToString();
         }
 
@@ -126,7 +136,18 @@ namespace AssemblyCSharp
                 float sizeX = jsonSize["x"].AsFloat;
                 float sizeY = jsonSize["y"].AsFloat;
                 game.Map = new MapModel { Id = mapId, Zoom = mapZoom, LatLon = new Vector2 { x = latLonX, y = latLonY }, Size = new Vector2 { x = sizeX, y = sizeY } };
-                Debug.Log("Map: " + game.Map.Id + " LatLon: " + game.Map.LatLon + " Size: " + game.Map.Size + " Zoom: " + game.Map.Zoom);
+            }
+
+            if (jsonGame["StartDate"] != null && jsonGame["StartDate"].Value != "null")
+            {
+                DateTime startDate = DateTime.ParseExact(jsonGame["StartDate"].Value, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+                game.StartDate = startDate;
+            }
+
+            if (jsonGame["EndDate"] != null && jsonGame["EndDate"].Value != "null")
+            {
+                DateTime endDate = DateTime.ParseExact(jsonGame["EndDate"].Value, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+                game.EndDate = endDate;
             }
 
             return game;

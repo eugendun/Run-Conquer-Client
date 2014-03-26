@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;
 using System.Text;
+using System;
 
 public class GameController : MonoBehaviour, MapListener {
     protected const float SyncRate = 1.0f;
@@ -16,7 +17,7 @@ public class GameController : MonoBehaviour, MapListener {
 	private Texture2D headerTexture;
 	private Texture2D iconTexture;
 
-	private float leftTime;
+	private TimeSpan leftTime;
 
 	private string output;
 
@@ -36,7 +37,6 @@ public class GameController : MonoBehaviour, MapListener {
 		headerTexture = Resources.Load<Texture2D>("textures/game_header");
 		iconTexture   = Resources.Load<Texture2D>("textures/iTunesArtwork");
 
-		leftTime = Shared.playTime;
 	}
 	
     public void mapDidLoad(Texture2D texture)
@@ -100,7 +100,6 @@ public class GameController : MonoBehaviour, MapListener {
             }
         }
 
-        Debug.Log("Ref player count: " + Shared.gameInstance.Players.Count);
         string apiCall = Shared.GetApiCallUrl(string.Format("GameInstance/PutGameInstance/{0}", Shared.gameInstance.Id));
         var data = Encoding.ASCII.GetBytes(Shared.gameInstance.ToJson());
         WWW webClient = new WWW(apiCall, data, Shared._headers);
@@ -127,29 +126,27 @@ public class GameController : MonoBehaviour, MapListener {
 	// Update is called once per frame
     void Update()
     {
-
-		leftTime -= Time.deltaTime;
-
-		if (leftTime <= 0) {
-			// evaluate winning team
-			int[] teamAccu = new int[] { 0, 0, 0, 0 };
-			foreach (GameObject mapTile in map.MapTiles) {
-				MapTileController mapTileController = mapTile.GetComponent<MapTileController>();
-				if (mapTileController.team != null) {
-					teamAccu[mapTileController.team.internalId]++;
-				}
-			}
-			int maxValue = 0;
-			int maxTeamId = 0;
-			for (int i = 0; i < 4; i++) {
-				if (teamAccu[i] > maxValue) {
-					maxValue = teamAccu[i];
-					maxTeamId = i;
-				}
-			}
-			Shared.winningTeamId = maxTeamId;
-			Application.LoadLevel("menuWin");
-		}
+        leftTime = Shared.gameInstance.EndDate.Value.Subtract(DateTime.Now);
+        //if (leftTime != TimeSpan.Zero) {
+        //    // evaluate winning team
+        //    int[] teamAccu = new int[] { 0, 0, 0, 0 };
+        //    foreach (GameObject mapTile in map.MapTiles) {
+        //        MapTileController mapTileController = mapTile.GetComponent<MapTileController>();
+        //        if (mapTileController.team != null) {
+        //            teamAccu[mapTileController.team.internalId]++;
+        //        }
+        //    }
+        //    int maxValue = 0;
+        //    int maxTeamId = 0;
+        //    for (int i = 0; i < 4; i++) {
+        //        if (teamAccu[i] > maxValue) {
+        //            maxValue = teamAccu[i];
+        //            maxTeamId = i;
+        //        }
+        //    }
+        //    Shared.winningTeamId = maxTeamId;
+        //    Application.LoadLevel("menuWin");
+        //}
 
 		// flip map tile
 		if (map.MapTiles != null) {
@@ -170,12 +167,6 @@ public class GameController : MonoBehaviour, MapListener {
 		GUI.DrawTexture(new Rect(0, 0, 1080, 120), headerTexture);
 		GUI.DrawTexture(new Rect(10, 10, 100, 100), iconTexture);
 		
-		// title (time)
-		int minutes = (int)(leftTime) / 60;
-		int seconds = (int)(leftTime - (minutes * 60));
-		string minutesString = (minutes < 10)? "0" + minutes : minutes.ToString();
-		string secondsString = (seconds < 10)? "0" + seconds : seconds.ToString();
-
-		GUI.Label(new Rect(0, 0, 1080, 100), minutesString + ":" + secondsString + " min", Shared.TitleStyle);
+		GUI.Label(new Rect(0, 0, 1080, 100), leftTime.Minutes + ":" + leftTime.Seconds + " min", Shared.TitleStyle);
 	}
 }
