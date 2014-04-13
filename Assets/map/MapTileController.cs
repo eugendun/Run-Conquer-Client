@@ -6,7 +6,6 @@ using AssemblyCSharp;
 public class MapTileController : MonoBehaviour, MapListener {
 
 
-	private int counter = 0;
 	private bool flipping = false;
 	private Quaternion targetRotation;
 	private float flipStartTime;
@@ -37,7 +36,7 @@ public class MapTileController : MonoBehaviour, MapListener {
 
 		if (owner != null && team != owner.Player.Team) {
 			team = owner.Player.Team;
-			renderer.material = new Material(owner.TeamObject.renderer.material);
+            //renderer.material = new Material(owner.TeamObject.renderer.material);
 			renderer.material.mainTexture = texture;
 			Flip();
 		}

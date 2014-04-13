@@ -1,3 +1,4 @@
+using SimpleJSON;
 using UnityEngine;
 
 namespace AssemblyCSharp
@@ -40,11 +41,16 @@ namespace AssemblyCSharp
 
         public string ToJsonString()
         {
-            string json = "{ id : @id, Position : { x : @x, y : @y }}";
-            json = json.Replace("@id", Id.ToString());
-            json = json.Replace("@x", Position.x.ToString());
-            json = json.Replace("@y", Position.y.ToString());
-            return json;
+            var jsonPlayer = new JSONClass();
+            jsonPlayer["Id"].AsInt = Id;
+
+            var jsonPosition = new JSONClass();
+            jsonPosition["x"].AsFloat = Position.x;
+            jsonPosition["y"].AsFloat = Position.y;
+
+            jsonPlayer.Add("Position", jsonPosition);
+
+            return jsonPlayer.ToString();
         }
     }
 }

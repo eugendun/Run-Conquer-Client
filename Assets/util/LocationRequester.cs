@@ -21,7 +21,7 @@ public class LocationRequester {
 		// First, check if user has location service enabled
         if (!Input.location.isEnabledByUser) {
 			output = "location not enabled!";
-            return false;
+             yield return false;
 		}
 		
         // Start service before querying location
@@ -36,12 +36,12 @@ public class LocationRequester {
         // Service didn't initialize in 20 seconds
         if (maxWait < 1) {
 			output = "Timed out";
-            return false;
+            yield return false;
         }
         // Connection has failed
         if (Input.location.status == LocationServiceStatus.Failed) {
 			output = "Unable to determine device location";
-            return false;
+            yield return false;
         } else {
 			locationEnabled = true;
         }
@@ -49,7 +49,7 @@ public class LocationRequester {
 		output = "Location enabled successfully";
         // Stop service if there is no need to query location updates continuously
         //Input.location.Stop ();
-		return true;
+		yield return true;
 	}
 
 	/// <summary>

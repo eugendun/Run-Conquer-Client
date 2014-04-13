@@ -4,7 +4,6 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
 	public float speed = 0.05f;
-	private Vector2 touchStartPosition;
 	private Vector2 lastDeltaPosition;
 	private float remainingTimeToFocus = 0;
 
@@ -14,10 +13,11 @@ public class CameraController : MonoBehaviour {
 
 		remainingTimeToFocus -= Time.deltaTime;
 
-		// focus player
-		if (remainingTimeToFocus < 0 && player != null) {
-			transform.position = new Vector3(player.position.x, transform.position.y, player.position.z);
-		}
+		// focus player (parent game object)
+        if (remainingTimeToFocus < 0 && player != null)
+        {
+            transform.position = new Vector3(player.position.x, transform.position.y, player.position.z);
+        }
 
 		// panning
 		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {

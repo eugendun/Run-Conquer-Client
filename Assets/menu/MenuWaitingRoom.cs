@@ -77,6 +77,7 @@ public class MenuWaitingRoom : MonoBehaviour
         if (!Shared.gameInstance.Players.Contains(player)) {
             Shared.gameInstance.Players.Add(player); 
         }
+        Shared.player = player;
     }
 
     protected IEnumerator SyncGame()

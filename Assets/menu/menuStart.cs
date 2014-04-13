@@ -86,7 +86,6 @@ public class menuStart : MonoBehaviour {
     private void LoadGame()
     {
         string apiCall = Shared.GetApiCallUrl("GameInstance/GetLastGameInstance");
-        var data = Encoding.ASCII.GetBytes("{}");   // send an empty json object
         WWW webClient = new WWW(apiCall);
         while (!webClient.isDone) {
             // wait until request is done

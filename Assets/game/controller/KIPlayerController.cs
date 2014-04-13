@@ -11,7 +11,7 @@ public class KIPlayerController : PlayerController {
 	private float speed;
 
 	// Use this for initialization
-	void Start () {
+	public new void Start () {
 		base.Start();
 
 		// set initial position dependent on team
@@ -20,7 +20,7 @@ public class KIPlayerController : PlayerController {
 		speed = speedList[Player.Team.Id];
 	}
 	
-	void Update () {
+	public new void Update () {
 
 		// look for next free map tile
 		if (targetMapTile == null || targetMapTile.GetComponent<MapTileController>().team == Player.Team) {

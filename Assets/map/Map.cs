@@ -16,7 +16,6 @@ public class Map : MonoBehaviour {
 	private Vector2 mapSize;
 
 	private string output = "";
-	private bool initialized = false;
 
 	private List<GameObject> mapTiles;
 	public List<GameObject> MapTiles { get { return mapTiles; } }

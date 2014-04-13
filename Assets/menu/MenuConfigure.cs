@@ -95,7 +95,7 @@ public class MenuConfigure : MonoBehaviour, MapListener {
             throw new UnityException("Game instance could not be created on the server!");
         }
         string jsonGame = Encoding.ASCII.GetString(webClient.bytes);
-        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);
+        GameInstanceModel game = GameInstanceModel.FromJson(jsonGame);        
         Shared.gameInstance = game;
 	}
 }
