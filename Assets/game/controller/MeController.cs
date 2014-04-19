@@ -26,15 +26,12 @@ public class MeController : PlayerController
         v.x *= mapSize.x;
         v.y *= mapSize.y;
 
-        //		// DEBUG auto-walk
-        //		if (Mathf.Abs(v.x - transform.position.x) < 17) {
-        //			v.x = transform.position.x - 0.003f;
-        //			v.y = transform.position.z - 0.002f;
-        //		}
-        Player.Position.x = v.x;
-        Player.Position.y = v.y;
+        if (!Shared.InDebug)
+        {
+            Player.Position.x = v.x;
+            Player.Position.y = v.y; 
+        }
 
-        //transform.position = new Vector3(v.x, 0.0f, v.y);
         transform.position = new Vector3(Player.Position.x, 0.0f, Player.Position.y);
 
         base.Update();

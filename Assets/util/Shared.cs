@@ -4,6 +4,8 @@ using AssemblyCSharp;
 using System;
 
 public class Shared {
+    public static bool InDebug = false;
+
     // server connection
     private const string ServerIp = "h2231364.stratoserver.net";
     private const string ServerPort = "9013";

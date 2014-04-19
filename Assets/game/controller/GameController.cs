@@ -154,27 +154,32 @@ public class GameController : MonoBehaviour, MapListener
     // Update is called once per frame
     void Update()
     {
-        leftTime = Shared.gameInstance.EndDate.Value.Subtract(DateTime.Now);
-        //if (leftTime != TimeSpan.Zero) {
+        //leftTime = Shared.gameInstance.EndDate.Value.Subtract(DateTime.Now);
+        //if (leftTime != TimeSpan.Zero)
+        //{
         //    // evaluate winning team
         //    int[] teamAccu = new int[] { 0, 0, 0, 0 };
-        //    foreach (GameObject mapTile in map.MapTiles) {
+        //    foreach (GameObject mapTile in map.MapTiles)
+        //    {
         //        MapTileController mapTileController = mapTile.GetComponent<MapTileController>();
-        //        if (mapTileController.team != null) {
+        //        if (mapTileController.team != null)
+        //        {
         //            teamAccu[mapTileController.team.internalId]++;
         //        }
         //    }
         //    int maxValue = 0;
         //    int maxTeamId = 0;
-        //    for (int i = 0; i < 4; i++) {
-        //        if (teamAccu[i] > maxValue) {
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        if (teamAccu[i] > maxValue)
+        //        {
         //            maxValue = teamAccu[i];
         //            maxTeamId = i;
         //        }
         //    }
         //    Shared.winningTeamId = maxTeamId;
         //    Application.LoadLevel("menuWin");
-        //}     
+        //}
 
         // flip map tile
         if (map.MapTiles != null)
@@ -208,17 +213,6 @@ public class GameController : MonoBehaviour, MapListener
         style.fontSize = 20;
 
         int hOffset = 0;
-        GUI.color = Color.green;
-        GUI.BeginGroup(new Rect(10, 150, 300, 100));
-        foreach (var player in Shared.gameInstance.Players)
-        {
-            var content = string.Format("ID: {0}, Pos: {1}, {2}", player.Id, player.Position.x, player.Position.y);
-            GUI.Label(new Rect(0, 40 * hOffset, 300, 40), content, style);
-            hOffset++;
-        }
-        GUI.EndGroup();
-
-        hOffset = 0;
         GUI.color = Color.yellow;
         GUI.BeginGroup(new Rect(10, 300, 300, 100));
         foreach (var pc in PlayerControllerList)
@@ -229,12 +223,28 @@ public class GameController : MonoBehaviour, MapListener
         }
         GUI.EndGroup();
 
-        GUI.BeginGroup(new Rect(Screen.width * 0.6f, Screen.height * 0.6f, (float)Screen.width, (float)Screen.height));
-        if (GUI.Button(new Rect(0f, 0f, 50f, 100f), "Up"))
+        if (Shared.InDebug)
         {
-            Shared.player.Position.x += 1.0f;
-            Debug.Log("UP");
+            GUI.BeginGroup(new Rect(Screen.width * 0.6f, Screen.height * 0.6f, (float)Screen.width, (float)Screen.height));
+            float w = Screen.width * 0.4f;
+            float h = Screen.height * 0.4f;
+            if (GUI.Button(new Rect(0f, 0f, w, h * 0.3f), "Up"))
+            {
+                Shared.player.Position.y += 0.5f;
+            }
+            if (GUI.Button(new Rect(0f, h * 0.3f, w * 0.5f, h * 0.3f), "Left"))
+            {
+                Shared.player.Position.x -= 0.5f;
+            }
+            if (GUI.Button(new Rect(w * 0.5f, h * 0.3f, w * 0.5f, h * 0.3f), "Right"))
+            {
+                Shared.player.Position.x += 0.5f;
+            }
+            if (GUI.Button(new Rect(0f, h * 0.3f * 2, w, h * 0.3f), "Down"))
+            {
+                Shared.player.Position.y -= 0.5f;
+            }
+            GUI.EndGroup();
         }
-        GUI.EndGroup();
     }
 }

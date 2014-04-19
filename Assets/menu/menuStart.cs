@@ -49,6 +49,15 @@ public class menuStart : MonoBehaviour {
 				decided = true;
 			}
 		}
+
+        if (GUI.Toggle(new Rect(Screen.width * 0.25f, Screen.height * 0.9f, Screen.width * 0.5f, Screen.height * 0.1f), Shared.InDebug, "Debug Mode"))
+        {
+            Shared.InDebug = true;
+        }
+        else
+        {
+            Shared.InDebug = false;
+        }
 	}
 
     private void RefreshGameOnServer()

@@ -59,31 +59,18 @@ public class PlayerController : MonoBehaviour
         set
         {
             _player = value;
-            //TeamObject = teamObject;
         }
     }
 
     // Use this for initialization
     public void Start()
     {
-        //string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
-        //_player = new PlayerModel(uniqDeviceId.GetHashCode());
-        //Shared.gameInstance.Players.Add(_player);
-
         // set texture coords
         TextureUnwrapper.unwrapUV(gameObject, new Vector2(1, 1), new Vector2(0.5f, 0.5f));
 
-        // call setter for team object (in case it has been called before Start()) to choose team color
-        //TeamObject = teamObject;
-
         transform.localScale = transform.localScale * 1.3f;
-        //		teamObject.tr localScale = Vector3.one;
-
-        // FIXME
-        //				StartCoroutine(SyncPosition());
     }
 
-    // Update is called once per frame
     public void Update()
     {
         if (Player != null)
