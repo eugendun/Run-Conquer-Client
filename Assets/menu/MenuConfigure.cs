@@ -35,7 +35,6 @@ public class MenuConfigure : MonoBehaviour, MapListener {
         // GameInstance configuration
 
         Shared.mapZoom = zoom;
-		Shared.playTime = time * 60;
         
         Shared.gameInstance.Map = new MapModel { LatLon = Shared.mapLatLon, Size = Shared.mapSize, Zoom = zoom };
         Shared.gameInstance.StartDate = Shared.StartDate;

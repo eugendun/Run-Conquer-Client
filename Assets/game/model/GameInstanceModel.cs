@@ -99,6 +99,14 @@ namespace AssemblyCSharp
                     jsonPosition["y"].AsFloat = player.Position.y;
                     jsonPlayer.Add("Position", jsonPosition);
 
+                    if (player.Team != null)
+                    {
+                        var jsonTeam = new JSONClass();
+                        jsonTeam["Color"] = player.Team.Color;
+                        jsonTeam["Name"] = player.Team.Name;
+                        jsonPlayer.Add("Team", jsonTeam);
+                    }
+
                     jsonPlayers.Add(jsonPlayer);
                 }
                 jsonGame.Add("Players", jsonPlayers); 
@@ -122,7 +130,21 @@ namespace AssemblyCSharp
                 var jsonPosition = jsonPlayer["Position"].AsObject;
                 float x = jsonPosition["x"].AsFloat;
                 float y = jsonPosition["y"].AsFloat;
-                game.Players.Add(new PlayerModel(id) { Position = new Vector2 { x = x, y = y } });
+
+                var player = new PlayerModel(id) { Position = new Vector2 { x = x, y = y } };
+
+                if (jsonPlayer["Team"] != null && jsonPlayer["Team"].Value != "null")
+                {
+                    var jsonTeam = jsonPlayer["Team"].AsObject;
+                    var teamId = jsonTeam["Id"].AsInt;
+                    var teamColor = jsonTeam["Color"].Value;
+                    var teamName = jsonTeam["Name"].Value;
+                    var team = new TeamModel(teamId) { Color = teamColor, Name = teamName };
+
+                    player.Team = team;
+                }
+
+                game.Players.Add(player);
             }
 
             var jsonMap = jsonGame["Map"].AsObject;

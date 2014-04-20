@@ -51,13 +51,13 @@ public class GameController : MonoBehaviour, MapListener
     {
         while (true)
         {
-            PushPlayerPositionToServer();
+            PushPlayerToServer();
             PullGameStateFromServer();
             yield return new WaitForSeconds(SyncRate);
         }
     }
 
-    private void PushPlayerPositionToServer()
+    private void PushPlayerToServer()
     {
         if (Shared.player != null)
         {
@@ -146,6 +146,15 @@ public class GameController : MonoBehaviour, MapListener
             playerController.Player = player;
         }
 
+        if (player.Team != null)
+        {
+            var mat = Resources.Load("materials/" + player.Team.Color, typeof(Material)) as Material;
+            if (mat != null)
+            {
+                playerGameObject.renderer.material = mat;
+            }
+        }
+
         playerController.map = map;         // remove it later, maybe it is not necessary
 
         return playerController;
@@ -208,23 +217,23 @@ public class GameController : MonoBehaviour, MapListener
 
         GUI.Label(new Rect(0, 0, 1080, 100), leftTime.Minutes + ":" + leftTime.Seconds + " min", Shared.TitleStyle);
 
-        var style = new GUIStyle(GUI.skin.label);
-        style.fontStyle = FontStyle.Bold;
-        style.fontSize = 20;
-
-        int hOffset = 0;
-        GUI.color = Color.yellow;
-        GUI.BeginGroup(new Rect(10, 300, 300, 100));
-        foreach (var pc in PlayerControllerList)
-        {
-            var content = string.Format("ID: {0}, Pos: {1}, {2}", pc.Player.Id, pc.Player.Position.x, pc.Player.Position.y);
-            GUI.Label(new Rect(0, 40 * hOffset, 300, 40), content, style);
-            hOffset++;
-        }
-        GUI.EndGroup();
-
         if (Shared.InDebug)
         {
+            var style = new GUIStyle(GUI.skin.label);
+            style.fontStyle = FontStyle.Bold;
+            style.fontSize = 20;
+
+            int hOffset = 0;
+            GUI.color = Color.yellow;
+            GUI.BeginGroup(new Rect(10, 300, 300, 100));
+            foreach (var pc in PlayerControllerList)
+            {
+                var content = string.Format("ID: {0}, Pos: {1}, {2}", pc.Player.Id, pc.Player.Position.x, pc.Player.Position.y);
+                GUI.Label(new Rect(0, 40 * hOffset, 300, 40), content, style);
+                hOffset++;
+            }
+            GUI.EndGroup();
+
             GUI.BeginGroup(new Rect(Screen.width * 0.6f, Screen.height * 0.6f, (float)Screen.width, (float)Screen.height));
             float w = Screen.width * 0.4f;
             float h = Screen.height * 0.4f;

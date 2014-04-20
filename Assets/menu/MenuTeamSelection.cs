@@ -30,20 +30,20 @@ public class MenuTeamSelection : MonoBehaviour {
         GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Select Team", Shared.TitleStyle);
         GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 		
-        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.2f, Screen.width * 0.5f, Screen.height * 0.1f), Shared.teamNames[0], Shared.ButtonStyle)) {
-			Shared.teamId = 0;
+        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.2f, Screen.width * 0.5f, Screen.height * 0.1f), TeamColor.Bloo.ToString(), Shared.ButtonStyle)) {
+            Shared.playerTeamColor = TeamColor.Bloo;
 			Next();
 		}
-        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.4f, Screen.width * 0.5f, Screen.height * 0.1f), Shared.teamNames[1], Shared.ButtonStyle)) {
-			Shared.teamId = 1;
+        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.4f, Screen.width * 0.5f, Screen.height * 0.1f), TeamColor.Griene.ToString(), Shared.ButtonStyle)) {
+            Shared.playerTeamColor = TeamColor.Griene;
 			Next();
 		}
-        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.6f, Screen.width * 0.5f, Screen.height * 0.1f), Shared.teamNames[2], Shared.ButtonStyle)) {
-			Shared.teamId = 2;
+        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.6f, Screen.width * 0.5f, Screen.height * 0.1f), TeamColor.Rette.ToString(), Shared.ButtonStyle)) {
+            Shared.playerTeamColor = TeamColor.Rette;
 			Next();
 		}
-        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.8f, Screen.width * 0.5f, Screen.height * 0.1f), Shared.teamNames[3], Shared.ButtonStyle)) {
-			Shared.teamId = 3;
+        if (GUI.Button(new Rect(Screen.width * 0.25f, Screen.height * 0.8f, Screen.width * 0.5f, Screen.height * 0.1f), TeamColor.Yello.ToString(), Shared.ButtonStyle)) {
+            Shared.playerTeamColor = TeamColor.Yello;
 			Next();
 		}
 	}

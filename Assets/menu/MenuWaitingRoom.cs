@@ -24,16 +24,6 @@ public class MenuWaitingRoom : MonoBehaviour
         StartCoroutine(SyncGame());
 	}
 	
-	// Update is called once per frame
-    void Update()
-    {
-		// TODO if not creator, wait for event to start game (maybe just a state inside shared e.g.)
-		// FIXME
-//		if (Shared.gameInstance.gameStarted) {
-//			Application.LoadLevel("game");
-//		}
-	}
-
     void OnGUI()
     {
 
@@ -51,7 +41,12 @@ public class MenuWaitingRoom : MonoBehaviour
             foreach (var player in Shared.gameInstance.Players) {
 
                 GUI.Label(new Rect(0, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), player.Id.ToString());
-                GUI.Label(new Rect(Screen.width * 0.4f, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), "unknown");
+                string teamName = "unknown";
+                if (player.Team != null)
+                {
+                    teamName = player.Team.Name;
+                }
+                GUI.Label(new Rect(Screen.width * 0.4f, heightOffset * Screen.height * 0.05f, Screen.width * 0.2f, Screen.height * 0.05f), teamName);
                 heightOffset++;
                
             }
@@ -74,6 +69,8 @@ public class MenuWaitingRoom : MonoBehaviour
         string uniqDeviceId = SystemInfo.deviceUniqueIdentifier;
         PlayerModel player = new PlayerModel(uniqDeviceId.GetHashCode());
         player.Team = new TeamModel(0);
+        player.Team.Color = Shared.playerTeamColor.ToString();
+        player.Team.Name = Shared.playerTeamColor.ToString();
         if (!Shared.gameInstance.Players.Contains(player)) {
             Shared.gameInstance.Players.Add(player); 
         }

@@ -73,6 +73,7 @@
      <Compile Include="Assets\util\MercatorProjection.cs" />
      <Compile Include="Assets\util\ObservableCollection.cs" />
      <Compile Include="Assets\util\Shared.cs" />
+     <Compile Include="Assets\util\SimpleJSON.cs" />
      <Compile Include="Assets\util\TextureUnwrapper.cs" />
  <Reference Include="ICSharpCode.SharpZipLib">
  <HintPath>Assets\plugins\ICSharpCode.SharpZipLib.dll</HintPath>

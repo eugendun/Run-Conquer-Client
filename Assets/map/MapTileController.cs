@@ -37,6 +37,11 @@ public class MapTileController : MonoBehaviour, MapListener {
 		if (owner != null && team != owner.Player.Team) {
 			team = owner.Player.Team;
             //renderer.material = new Material(owner.TeamObject.renderer.material);
+            var mat = Resources.Load("materials/" + owner.Player.Team.Color, typeof(Material)) as Material;
+            if (mat != null)
+            {
+                renderer.material = mat;
+            }
 			renderer.material.mainTexture = texture;
 			Flip();
 		}

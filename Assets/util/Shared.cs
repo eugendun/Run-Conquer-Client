@@ -3,6 +3,11 @@ using System.Collections;
 using AssemblyCSharp;
 using System;
 
+public enum TeamColor
+{
+    Rette, Bloo, Griene, Yello
+}
+
 public class Shared {
     public static bool InDebug = false;
 
@@ -20,20 +25,16 @@ public class Shared {
 
     public static GameInstanceModel gameInstance = null;
     public static PlayerModel player = null;
+    public static TeamColor playerTeamColor;
 
     public static DateTime StartDate = DateTime.Now;
     public static DateTime EndDate = StartDate.AddHours(1.0);
 
-	public static string playerName = "Johannes";	// DEBUG. TODO: Adjust for other player deployment
 	public static bool creator = false;
-	public static int teamId = 1;
-	public static string gameName = "Mainz";		// DEBUG. TODO: Set name via create-menu
 
 	public static Vector2 mapLatLon;
 	public static Vector2 mapSize = new Vector2(4096, 4096);
 	public static int mapZoom = 18;
-
-	public static float playTime = 13;		// in seconds
 
 	public static string[] teamNames = new string[] { "Rette", "Bloo", "Griene", "Yello" };
 
