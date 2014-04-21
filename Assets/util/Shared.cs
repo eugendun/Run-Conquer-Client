@@ -28,7 +28,8 @@ public class Shared {
     public static TeamColor playerTeamColor;
 
     public static DateTime StartDate = DateTime.Now;
-    public static DateTime EndDate = StartDate.AddHours(1.0);
+    //public static DateTime EndDate = StartDate.AddHours(1.0);
+    public static DateTime EndDate = StartDate.AddMinutes(5);
 
 	public static bool creator = false;
 
@@ -36,9 +37,7 @@ public class Shared {
 	public static Vector2 mapSize = new Vector2(4096, 4096);
 	public static int mapZoom = 18;
 
-	public static string[] teamNames = new string[] { "Rette", "Bloo", "Griene", "Yello" };
-
-	public static int winningTeamId;
+    public static TeamColor winnerTeam;
 
 	private static LocationRequester locationRequester;
 	public static LocationRequester LocationRequester { get { return locationRequester; } }

@@ -163,32 +163,42 @@ public class GameController : MonoBehaviour, MapListener
     // Update is called once per frame
     void Update()
     {
-        //leftTime = Shared.gameInstance.EndDate.Value.Subtract(DateTime.Now);
-        //if (leftTime != TimeSpan.Zero)
-        //{
-        //    // evaluate winning team
-        //    int[] teamAccu = new int[] { 0, 0, 0, 0 };
-        //    foreach (GameObject mapTile in map.MapTiles)
-        //    {
-        //        MapTileController mapTileController = mapTile.GetComponent<MapTileController>();
-        //        if (mapTileController.team != null)
-        //        {
-        //            teamAccu[mapTileController.team.internalId]++;
-        //        }
-        //    }
-        //    int maxValue = 0;
-        //    int maxTeamId = 0;
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        if (teamAccu[i] > maxValue)
-        //        {
-        //            maxValue = teamAccu[i];
-        //            maxTeamId = i;
-        //        }
-        //    }
-        //    Shared.winningTeamId = maxTeamId;
-        //    Application.LoadLevel("menuWin");
-        //}
+        leftTime = Shared.gameInstance.EndDate.Value.Subtract(DateTime.Now);
+        if (leftTime <= TimeSpan.Zero)
+        {
+            // evaluate winning team
+            Dictionary<TeamColor, int> teamAccu = new Dictionary<TeamColor,int>();
+            foreach (GameObject mapTile in map.MapTiles)
+            {
+                MapTileController mapTileController = mapTile.GetComponent<MapTileController>();
+                if (mapTileController.team != null)
+                {
+                    TeamColor team = (TeamColor)Enum.Parse(typeof(TeamColor), mapTileController.owner.Player.Team.Color);
+                    if (!teamAccu.ContainsKey(team))
+                    {
+                        teamAccu.Add(team, 0);
+                    }
+                    else
+                    {
+                        teamAccu[team]++;
+                    }
+                }
+            }
+
+            int maxValue = 0;
+            TeamColor winner = TeamColor.Bloo; 
+            foreach (var t in teamAccu)
+            {
+                if (t.Value > maxValue)
+                {
+                    winner = t.Key;
+                    maxValue = t.Value;
+                }
+            }
+
+            Shared.winnerTeam = winner;
+            Application.LoadLevel("menuWin");
+        }
 
         // flip map tile
         if (map.MapTiles != null)

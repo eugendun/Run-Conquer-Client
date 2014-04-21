@@ -23,7 +23,7 @@ public class MenuWin : MonoBehaviour {
 		GUI.Label(new Rect(0, 0, 1080, 100), "And the Winner is ...", Shared.TitleStyle);
 		GUI.DrawTexture(new Rect(10, 10, 100, 100), Shared.iconTexture);
 		
-		GUI.Label(new Rect(0, 900, 1080, 200), "Team " + Shared.teamNames[Shared.winningTeamId], Shared.TitleStyle);
+		GUI.Label(new Rect(0, 900, 1080, 200), "Team " + Shared.winnerTeam.ToString(), Shared.TitleStyle);
 		
 		// next
 		if (Shared.creator) {
